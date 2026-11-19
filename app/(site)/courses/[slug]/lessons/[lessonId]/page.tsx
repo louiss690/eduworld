@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Clock } from "lucide-react";
 import { LessonBlocks } from "@/components/lessons/LessonBlocks";
 import { MarkCompleteButton } from "@/components/lessons/MarkCompleteButton";
+import { BookmarkButton } from "@/components/ui/BookmarkButton";
 import { getDataStore } from "@/services/data";
 import { requireRole } from "@/services/auth/session";
 
@@ -36,6 +37,7 @@ export default async function LessonPage({ params }: { params: Promise<LessonPag
   const idx = lessons.findIndex((l) => l.id === lesson.id);
   const prev = idx > 0 ? lessons[idx - 1] : null;
   const next = idx < lessons.length - 1 ? lessons[idx + 1] : null;
+  const bookmarked = await store.isBookmarked(user.id, "lesson", lesson.id);
 
   return (
     <div className="bg-paper">
@@ -86,6 +88,9 @@ export default async function LessonPage({ params }: { params: Promise<LessonPag
               <span className="badge">Lesson {lesson.order} of {lessons.length}</span>
               <span className="inline-flex items-center gap-1.5">
                 <Clock className="size-3.5" /> {lesson.minutes} min
+              </span>
+              <span className="ml-auto">
+                <BookmarkButton targetType="lesson" targetId={lesson.id} initial={bookmarked} compact />
               </span>
             </div>
             <h1 className="mt-4 text-2xl font-bold tracking-tight text-navy-950 sm:text-3xl">

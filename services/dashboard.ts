@@ -1,15 +1,55 @@
-import type { Course, RecentActivity, StudentSummary } from "@/types";
+import type {
+  BookmarkTarget,
+  Course,
+  QuizAttempt,
+  RecentActivity,
+  StudentSummary,
+} from "@/types";
 import type { DataStore } from "@/services/data/types";
 
-/**
- * Assembles the personalised dashboard data for a student — derives stats,
- * recent activity and recommendation candidates from the store.
- */
+export interface ResolvedBookmark {
+  targetType: BookmarkTarget;
+  targetId: string;
+  title: string;
+  href: string;
+  createdAt: string;
+}
+
+export interface DashboardBundle {
+  summary: StudentSummary;
+  enrollments: { course: Course; progressPct: number }[];
+  recommended: Course[];
+  recentLessons: { lessonId: string; title: string; courseId: string; courseSlug: string; courseTitle: string; at: string }[];
+  recentAttempts: { attempt: QuizAttempt; quizTitle: string }[];
+  bookmarks: ResolvedBookmark[];
+}
+
+async function resolveBookmark(
+  store: DataStore,
+  targetType: BookmarkTarget,
+  targetId: string
+): Promise<{ title: string; href: string } | null> {
+  if (targetType === "course") {
+    const course = await store.getCourseById(targetId);
+    return course ? { title: course.title, href: `/courses/${course.slug}` } : null;
+  }
+  if (targetType === "lesson") {
+    const lesson = await store.getLessonById(targetId);
+    if (!lesson) return null;
+    const course = await store.getCourseById(lesson.courseId);
+    return {
+      title: lesson.title,
+      href: `/courses/${course?.slug ?? ""}/lessons/${lesson.id}`,
+    };
+  }
+  return null;
+}
+
 export async function buildStudentSummary(
   userId: string,
   store: DataStore
-): Promise<{ summary: StudentSummary; enrollments: { course: Course; progressPct: number }[]; recommended: Course[] }> {
-  const [enrollments, progress, attempts, achievements, userAchievements, courses] =
+): Promise<DashboardBundle> {
+  const [enrollments, progress, attempts, achievements, userAchievements, courses, bookmarks] =
     await Promise.all([
       store.getEnrollments(userId),
       store.getProgressForUser(userId),
@@ -17,6 +57,7 @@ export async function buildStudentSummary(
       store.getAchievements(),
       store.listUserAchievements(userId),
       store.getCourses(),
+      store.listBookmarks(userId),
     ]);
 
   const completedLessons = progress.filter((p) => p.status === "completed");
@@ -103,5 +144,44 @@ export async function buildStudentSummary(
     recentActivity: activity.slice(0, 8),
   };
 
-  return { summary, enrollments: enriched, recommended };
+  // Recently accessed lessons (most recent first).
+  const recentLessons: DashboardBundle["recentLessons"] = [];
+  for (const p of [...progress].sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))) {
+    const lesson = await store.getLessonById(p.lessonId);
+    if (!lesson) continue;
+    const course = await store.getCourseById(p.courseId);
+    recentLessons.push({
+      lessonId: lesson.id,
+      title: lesson.title,
+      courseId: p.courseId,
+      courseSlug: course?.slug ?? "",
+      courseTitle: course?.title ?? "",
+      at: p.updatedAt,
+    });
+    if (recentLessons.length >= 5) break;
+  }
+
+  // Recent quiz attempts with quiz titles.
+  const recentAttempts: DashboardBundle["recentAttempts"] = [];
+  for (const attempt of attempts.slice(0, 5)) {
+    const quiz = await store.getQuizById(attempt.quizId);
+    recentAttempts.push({ attempt, quizTitle: quiz?.title ?? "Quiz" });
+  }
+
+  // Bookmarks resolved to readable titles/links.
+  const resolvedBookmarks: ResolvedBookmark[] = [];
+  for (const bookmark of bookmarks) {
+    const resolved = await resolveBookmark(store, bookmark.targetType, bookmark.targetId);
+    if (!resolved) continue;
+    resolvedBookmarks.push({
+      targetType: bookmark.targetType,
+      targetId: bookmark.targetId,
+      title: resolved.title,
+      href: resolved.href,
+      createdAt: bookmark.createdAt,
+    });
+    if (resolvedBookmarks.length >= 8) break;
+  }
+
+  return { summary, enrollments: enriched, recommended, recentLessons, recentAttempts, bookmarks: resolvedBookmarks };
 }

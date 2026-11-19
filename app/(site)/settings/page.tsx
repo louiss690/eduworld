@@ -13,11 +13,12 @@ export const dynamic = "force-dynamic";
 export default async function SettingsPage() {
   const user = await requireUser();
   const store = getDataStore();
-  const [profile, countries, languages, levels] = await Promise.all([
+  const [profile, countries, languages, levels, subjects] = await Promise.all([
     store.getStudentProfile(user.id),
     store.getCountries(),
     store.getLanguages(),
     store.getLevels(),
+    store.getSubjects(),
   ]);
 
   return (
@@ -39,10 +40,12 @@ export default async function SettingsPage() {
                 languageCode: profile?.languageCode ?? "en",
                 educationLevelId: profile?.educationLevelId ?? "",
                 bio: profile?.bio ?? "",
+                subjectIds: profile?.subjectIds ?? [],
               }}
               countries={countries}
               languages={languages}
               levels={levels}
+              subjects={subjects}
             />
           </div>
         </div>

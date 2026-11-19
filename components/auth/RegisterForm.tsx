@@ -60,7 +60,7 @@ export function RegisterForm({
         return;
       }
       await refresh();
-      router.push("/dashboard");
+      router.push("/onboarding");
       router.refresh();
     } catch {
       setError("Network error. Please try again.");

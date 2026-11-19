@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { DemoBadge } from "@/components/ui/DemoBadge";
+import type { TutorStatus } from "@/services/ai";
 
 interface ConversationSummary {
   id: string;
@@ -34,11 +35,13 @@ const SUGGESTIONS = [
 
 export function TutorChat({
   initialConversations,
-  demoProvider,
+  status,
 }: {
   initialConversations: ConversationSummary[];
-  demoProvider: boolean;
+  status: TutorStatus;
 }) {
+  const demoProvider = status === "demo";
+  const unconfigured = status === "unconfigured";
   const [conversations, setConversations] = useState(initialConversations);
   const [activeId, setActiveId] = useState<string | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -184,6 +187,23 @@ export function TutorChat({
             <div className="flex h-full items-center justify-center text-sm text-muted">
               <Loader2 className="mr-2 size-4 animate-spin" /> Loading conversation…
             </div>
+          ) : messages.length === 0 && unconfigured ? (
+            <div className="mx-auto max-w-xl py-6">
+              <div className="rounded-2xl border border-line bg-surface2 p-8 text-center">
+                <span className="mx-auto grid size-14 place-items-center rounded-2xl bg-surface3 text-muted">
+                  <Sparkles className="size-7" />
+                </span>
+                <h2 className="mt-4 text-lg font-bold text-navy-950">AI Tutor requires configuration</h2>
+                <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-muted">
+                  The tutor is not connected to an AI provider yet, so it won't
+                  generate responses — including simulated ones. Add{" "}
+                  <code className="rounded bg-surface1 px-1.5 py-0.5 text-[13px] text-brand-700">OPENAI_API_KEY</code>{" "}
+                  to <code className="rounded bg-surface1 px-1.5 py-0.5 text-[13px] text-brand-700">.env.local</code>{" "}
+                  to enable it. (A clearly-labelled demo tutor can be enabled
+                  explicitly with <code className="rounded bg-surface1 px-1.5 py-0.5 text-[13px] text-brand-700">ALLOW_DEMO_TUTOR=true</code>.)
+                </p>
+              </div>
+            </div>
           ) : messages.length === 0 ? (
             <div className="mx-auto max-w-xl">
               <div className="text-center">
@@ -198,7 +218,8 @@ export function TutorChat({
                 </p>
                 {demoProvider && (
                   <p className="mt-4 rounded-xl border border-gold-500/40 bg-gold-100 px-4 py-3 text-[13px] text-gold-700">
-                    AI service not configured — replies are demo responses. Add an API key in .env.local to enable the real tutor.
+                    Demo tutor enabled (ALLOW_DEMO_TUTOR) — replies are clearly
+                    labelled demo responses. Add an API key for the real tutor.
                   </p>
                 )}
               </div>
@@ -258,30 +279,39 @@ export function TutorChat({
         )}
 
         <div className="border-t border-line p-4">
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              void send(input);
-            }}
-            className="flex items-center gap-2.5"
-          >
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask a question…"
-              aria-label="Message the AI tutor"
-              className="input-field"
-              maxLength={4000}
-              disabled={busy}
-            />
-            <button type="submit" className="btn-primary !px-4" disabled={busy || !input.trim()} aria-label="Send message">
-              {busy ? <Loader2 className="size-4 animate-spin" /> : <Send className="size-4" />}
-            </button>
-          </form>
-          <p className="mt-2.5 text-[11px] text-muted">
-            The tutor guides you to understanding — it won't just hand over answers.
-          </p>
+          {unconfigured ? (
+            <p className="text-sm text-muted">
+              Chat is disabled until an AI provider is configured (see the panel
+              above).
+            </p>
+          ) : (
+            <>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  void send(input);
+                }}
+                className="flex items-center gap-2.5"
+              >
+                <input
+                  type="text"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder="Ask a question…"
+                  aria-label="Message the AI tutor"
+                  className="input-field"
+                  maxLength={4000}
+                  disabled={busy}
+                />
+                <button type="submit" className="btn-primary !px-4" disabled={busy || !input.trim()} aria-label="Send message">
+                  {busy ? <Loader2 className="size-4 animate-spin" /> : <Send className="size-4" />}
+                </button>
+              </form>
+              <p className="mt-2.5 text-[11px] text-muted">
+                The tutor guides you to understanding — it won't just hand over answers.
+              </p>
+            </>
+          )}
         </div>
       </div>
     </div>

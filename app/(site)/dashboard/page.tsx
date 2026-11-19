@@ -4,10 +4,12 @@ import Image from "next/image";
 import {
   ArrowRight,
   Award,
+  Bookmark,
   BookOpenCheck,
   Bot,
   FileCheck2,
   Globe2,
+  History,
   Sparkles,
   Target,
   TrendingUp,
@@ -29,14 +31,16 @@ export default async function DashboardPage() {
   const user = await requireUser();
   const store = getDataStore();
 
-  const [profile, countries, languages, levels, { summary, enrollments, recommended }] =
-    await Promise.all([
-      store.getStudentProfile(user.id),
-      store.getCountries(),
-      store.getLanguages(),
-      store.getLevels(),
-      buildStudentSummary(user.id, store),
-    ]);
+  const [profile, countries, languages, levels, bundle, subjects] = await Promise.all([
+    store.getStudentProfile(user.id),
+    store.getCountries(),
+    store.getLanguages(),
+    store.getLevels(),
+    buildStudentSummary(user.id, store),
+    store.getSubjects(),
+  ]);
+  const { summary, enrollments, recommended, recentLessons, recentAttempts, bookmarks } = bundle;
+  const chosenSubjects = subjects.filter((s) => profile?.subjectIds.includes(s.id));
 
   const country = countries.find((c) => c.code === profile?.countryCode);
   const language = languages.find((l) => l.code === profile?.languageCode);
@@ -60,6 +64,15 @@ export default async function DashboardPage() {
                 {country ? `📍 ${country.name}` : "Wherever you are, keep learning."}
                 {language?.available === false && ` · ${language.name} content coming soon`}
               </p>
+              {chosenSubjects.length > 0 && (
+                <div className="mt-2.5 flex flex-wrap gap-1.5">
+                  {chosenSubjects.map((s) => (
+                    <Link key={s.id} href={`/subjects/${s.slug}`} className="badge hover:border-brand-300">
+                      {s.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
           <Link href="/library" className="btn-primary shrink-0">
@@ -125,6 +138,32 @@ export default async function DashboardPage() {
               </ul>
             )}
           </section>
+
+          {/* Recently accessed */}
+          {recentLessons.length > 0 && (
+            <section aria-labelledby="recent-heading">
+              <h2 id="recent-heading" className="text-lg font-bold text-navy-950">Recently accessed</h2>
+              <ul className="mt-4 space-y-2.5">
+                {recentLessons.map((l) => (
+                  <li key={l.lessonId}>
+                    <Link
+                      href={`/courses/${l.courseSlug}/lessons/${l.lessonId}`}
+                      className="card flex items-center gap-3 p-4 transition-shadow hover:shadow-md"
+                    >
+                      <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-surface3 text-navy-700">
+                        <History className="size-4" />
+                      </span>
+                      <span className="min-w-0 flex-1">
+                        <span className="block truncate text-sm font-semibold text-navy-950">{l.title}</span>
+                        <span className="block truncate text-[13px] text-muted">{l.courseTitle}</span>
+                      </span>
+                      <ArrowRight className="size-4 shrink-0 text-muted" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
 
           {/* Recommended */}
           {recommended.length > 0 && (
@@ -264,6 +303,71 @@ export default async function DashboardPage() {
               </ul>
             ) : (
               <p className="mt-4 text-sm text-muted">Your recent activity will appear here.</p>
+            )}
+          </section>
+
+          {/* Recent quiz results */}
+          <section className="card p-6" aria-labelledby="quiz-results-heading">
+            <div className="flex items-center justify-between">
+              <h2 id="quiz-results-heading" className="text-base font-bold text-navy-950">Recent quiz results</h2>
+              {summary.quizzesTaken > 0 && (
+                <Link href="/results" className="text-sm font-semibold text-brand-700 hover:text-brand-800">
+                  All results
+                </Link>
+              )}
+            </div>
+            {recentAttempts.length > 0 ? (
+              <ul className="mt-4 space-y-3">
+                {recentAttempts.map(({ attempt, quizTitle }) => (
+                  <li key={attempt.id} className="flex items-center gap-3">
+                    <span className={`grid size-10 shrink-0 place-items-center rounded-lg text-sm font-bold ${attempt.passed ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"}`}>
+                      {attempt.scorePct}%
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-sm font-semibold text-navy-950">{quizTitle}</p>
+                      <p className="text-[13px] text-muted">
+                        {attempt.correctCount}/{attempt.total} correct · {new Date(attempt.completedAt).toLocaleDateString("en", { month: "short", day: "numeric" })}
+                      </p>
+                    </div>
+                    <Link href={`/results#attempt-${attempt.id}`} className="text-[13px] font-semibold text-brand-700 hover:text-brand-800">
+                      Review
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="mt-4 text-sm text-muted">
+                Take a checkpoint quiz to see your results here.
+              </p>
+            )}
+          </section>
+
+          {/* Bookmarked resources */}
+          <section className="card p-6" aria-labelledby="bookmarks-heading">
+            <div className="flex items-center justify-between">
+              <h2 id="bookmarks-heading" className="text-base font-bold text-navy-950">Bookmarked resources</h2>
+              <Bookmark className="size-4 text-muted" />
+            </div>
+            {bookmarks.length > 0 ? (
+              <ul className="mt-4 space-y-3">
+                {bookmarks.map((b) => (
+                  <li key={`${b.targetType}-${b.targetId}`}>
+                    <Link href={b.href} className="group flex items-center gap-3">
+                      <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-surface3 text-navy-700">
+                        <Bookmark className="size-3.5" />
+                      </span>
+                      <span className="min-w-0 flex-1">
+                        <span className="block truncate text-sm font-medium text-navy-950 group-hover:text-brand-700">{b.title}</span>
+                        <span className="block text-[13px] capitalize text-muted">{b.targetType}</span>
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="mt-4 text-sm text-muted">
+                Save courses and lessons with the bookmark button to find them here.
+              </p>
             )}
           </section>
 

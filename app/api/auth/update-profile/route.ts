@@ -34,6 +34,9 @@ export async function POST(request: Request) {
     );
   }
 
-  await getDataStore().setStudentProfile(user.id, parsed.data);
+  await getDataStore().setStudentProfile(user.id, {
+    ...parsed.data,
+    subjectIds: parsed.data.subjectIds ?? undefined,
+  });
   return NextResponse.json({ ok: true });
 }

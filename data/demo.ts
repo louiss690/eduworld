@@ -176,7 +176,7 @@ const courses: Course[] = [
     longDescription:
       "Algebra is where mathematics starts to speak a new language. This course builds a solid foundation, step by step, with clear explanations and plenty of guided practice. You will leave able to read and write algebraic expressions, solve linear equations with confidence, and see the patterns behind the numbers.",
     imageUrl: "/images/photos/math-student.jpg",
-    instructor: { name: "Dr. Amara Okafor", title: "Mathematics Lead" },
+    instructor: { name: "EduWorld Curriculum Team", title: "In-house content" },
     published: true,
     featured: true,
     isDemo: true,
@@ -194,7 +194,7 @@ const courses: Course[] = [
     longDescription:
       "Every living thing is made of cells. In this course you will discover what cells are, how they work, and how tiny structures inside them power everything from breathing to growth. Microscopy, diagrams and everyday examples bring biology to life.",
     imageUrl: "/images/photos/science-lab.jpg",
-    instructor: { name: "Prof. Liam Mensah", title: "Head of Science" },
+    instructor: { name: "EduWorld Curriculum Team", title: "In-house content" },
     published: true,
     featured: true,
     isDemo: true,
@@ -212,7 +212,7 @@ const courses: Course[] = [
     longDescription:
       "Academic writing is a muscle. This course trains you to structure paragraphs, build arguments, and express ideas with precision. You will practise with real writing tasks at every step and get the tools to edit your own work.",
     imageUrl: "/images/photos/library-books.jpg",
-    instructor: { name: "Sarah Chen", title: "English Faculty" },
+    instructor: { name: "EduWorld Curriculum Team", title: "In-house content" },
     published: true,
     featured: true,
     isDemo: true,
@@ -230,7 +230,7 @@ const courses: Course[] = [
     longDescription:
       "Programming is a superpower. This course teaches you the core ideas — variables, conditions, loops and functions — using Python, the language beginners and professionals both love. By the final lesson you will have built a small real program of your own.",
     imageUrl: "/images/photos/coding-screen.jpg",
-    instructor: { name: "Kenji Watanabe", title: "Software Engineer & Educator" },
+    instructor: { name: "EduWorld Curriculum Team", title: "In-house content" },
     published: true,
     featured: true,
     isDemo: true,
@@ -248,7 +248,7 @@ const courses: Course[] = [
     longDescription:
       "The twentieth century transformed humanity. Through clear narrative and primary sources, this course connects the big events — from world wars to decolonisation and the digital revolution — and shows why they still matter today.",
     imageUrl: "/images/photos/history-archive.jpg",
-    instructor: { name: "Dr. Sofia Ramirez", title: "History Department" },
+    instructor: { name: "EduWorld Curriculum Team", title: "In-house content" },
     published: true,
     featured: false,
     isDemo: true,
@@ -266,7 +266,7 @@ const courses: Course[] = [
     longDescription:
       "Why do deserts form where they do? Where does rain come from? This course unpacks the Earth's physical systems with vivid examples from around the world, helping you read the landscape like a geographer.",
     imageUrl: "/images/photos/geography-map.jpg",
-    instructor: { name: "James Okello", title: "Geography Faculty" },
+    instructor: { name: "EduWorld Curriculum Team", title: "In-house content" },
     published: true,
     featured: false,
     isDemo: true,
@@ -284,7 +284,7 @@ const courses: Course[] = [
     longDescription:
       "Economics is not abstract — it is the story of how we make choices. From the price of bread to why firms advertise, this course gives you a practical toolkit to understand the economy you live in every day.",
     imageUrl: "/images/photos/business-meeting.jpg",
-    instructor: { name: "Priya Nair", title: "Economics Faculty" },
+    instructor: { name: "EduWorld Curriculum Team", title: "In-house content" },
     published: true,
     featured: false,
     isDemo: true,
@@ -302,7 +302,7 @@ const courses: Course[] = [
     longDescription:
       "Whether you dream of starting a company or simply want to understand the one you might work for, this course explains the essentials: what a business does, how it earns and spends, and what makes customers come back.",
     imageUrl: "/images/photos/classroom-work.jpg",
-    instructor: { name: "Grace Achebe", title: "Business Studies Lead" },
+    instructor: { name: "EduWorld Curriculum Team", title: "In-house content" },
     published: true,
     featured: false,
     isDemo: true,

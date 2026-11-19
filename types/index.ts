@@ -20,6 +20,18 @@ export interface StudentProfile {
   languageCode: string | null;
   educationLevelId: string | null;
   bio: string | null;
+  /** Subject ids the student chose to study (onboarding / settings). */
+  subjectIds: string[];
+}
+
+export type BookmarkTarget = "course" | "lesson" | "material";
+
+export interface Bookmark {
+  id: string;
+  userId: string;
+  targetType: BookmarkTarget;
+  targetId: string;
+  createdAt: string;
 }
 
 export interface TeacherProfile {

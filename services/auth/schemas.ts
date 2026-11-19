@@ -36,6 +36,7 @@ export const profileSchema = z.object({
   languageCode: z.string().max(4).optional().nullable(),
   educationLevelId: z.string().max(40).optional().nullable(),
   bio: z.string().max(500).optional().nullable(),
+  subjectIds: z.array(z.string().max(40)).max(20).optional(),
 });
 
 export interface AuthResponse {

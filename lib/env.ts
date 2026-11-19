@@ -57,3 +57,13 @@ export function aiProviderConfig(): AIProviderConfig | null {
     model: process.env.OPENAI_MODEL || "gpt-4o-mini",
   };
 }
+
+/**
+ * Demo tutor opt-in. When false (default), the tutor refuses to respond
+ * unless a real AI provider is configured — the platform never pretends an
+ * unavailable AI is functional. Set ALLOW_DEMO_TUTOR=true only for
+ * development/demo environments, where replies are clearly labelled.
+ */
+export function allowDemoTutor(): boolean {
+  return process.env.ALLOW_DEMO_TUTOR === "true";
+}

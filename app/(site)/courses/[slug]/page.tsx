@@ -11,6 +11,7 @@ import {
   PlayCircle,
 } from "lucide-react";
 import { EnrollButton } from "@/components/courses/EnrollButton";
+import { BookmarkButton } from "@/components/ui/BookmarkButton";
 import { getDataStore } from "@/services/data";
 import { formatDurationMinutes } from "@/lib/utils";
 import { getCurrentUser } from "@/services/auth/session";
@@ -55,6 +56,7 @@ export default async function CoursePage({
   const totalMinutes = lessons.reduce((sum, l) => sum + l.minutes, 0);
 
   const enrolled = user ? await store.isEnrolled(user.id, course.id) : false;
+  const bookmarked = user ? await store.isBookmarked(user.id, "course", course.id) : false;
   const progress = user ? await store.getProgressForUser(user.id) : [];
   const completedLessonIds = new Set(
     progress.filter((p) => p.courseId === course.id && p.status === "completed").map((p) => p.lessonId)
@@ -91,8 +93,11 @@ export default async function CoursePage({
                 </span>
               )}
             </div>
-            <div className="mt-8 max-w-sm">
-              <EnrollButton courseId={course.id} courseSlug={course.slug} initialEnrolled={enrolled} />
+            <div className="mt-8 flex max-w-md flex-col gap-3 sm:flex-row sm:items-center">
+              <div className="flex-1">
+                <EnrollButton courseId={course.id} courseSlug={course.slug} initialEnrolled={enrolled} />
+              </div>
+              <BookmarkButton targetType="course" targetId={course.id} initial={bookmarked} />
             </div>
           </div>
 

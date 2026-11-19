@@ -2,13 +2,15 @@
 
 import { useState } from "react";
 import { CheckCircle2, Loader2 } from "lucide-react";
-import type { Country, EducationalLevel, Language } from "@/types";
+import { cn } from "@/lib/utils";
+import type { Country, EducationalLevel, Language, Subject } from "@/types";
 
 export function SettingsForm({
   initial,
   countries,
   languages,
   levels,
+  subjects,
 }: {
   initial: {
     name: string;
@@ -17,15 +19,26 @@ export function SettingsForm({
     languageCode: string;
     educationLevelId: string;
     bio: string;
+    subjectIds: string[];
   };
   countries: Country[];
   languages: Language[];
   levels: EducationalLevel[];
+  subjects: Subject[];
 }) {
   const [form, setForm] = useState(initial);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  function toggleSubject(id: string) {
+    setForm((f) => ({
+      ...f,
+      subjectIds: f.subjectIds.includes(id)
+        ? f.subjectIds.filter((s) => s !== id)
+        : [...f.subjectIds, id],
+    }));
+  }
 
   function update(field: keyof typeof form) {
     return (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
@@ -46,6 +59,7 @@ export function SettingsForm({
           languageCode: form.languageCode || null,
           educationLevelId: form.educationLevelId || null,
           bio: form.bio || null,
+          subjectIds: form.subjectIds,
         }),
       });
       const data = (await res.json()) as { ok: boolean; error?: string };
@@ -120,6 +134,31 @@ export function SettingsForm({
       <div>
         <label htmlFor="bio" className="label-form">Short bio (optional)</label>
         <textarea id="bio" rows={3} maxLength={500} className="input-field resize-none" placeholder="What are you hoping to learn?" value={form.bio} onChange={update("bio")} />
+      </div>
+
+      <div>
+        <span className="label-form">Subjects of interest</span>
+        <div className="flex flex-wrap gap-2">
+          {subjects.map((subject) => {
+            const selected = form.subjectIds.includes(subject.id);
+            return (
+              <button
+                key={subject.id}
+                type="button"
+                onClick={() => toggleSubject(subject.id)}
+                aria-pressed={selected}
+                className={cn(
+                  "rounded-full border px-3.5 py-1.5 text-[13px] font-medium transition-colors",
+                  selected
+                    ? "border-brand-400 bg-brand-50 text-brand-800"
+                    : "border-line bg-surface1 text-navy-800 hover:border-navy-300"
+                )}
+              >
+                {subject.name}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       <div className="flex items-center justify-end gap-3 border-t border-line pt-5">

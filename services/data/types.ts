@@ -2,6 +2,8 @@ import type {
   Achievement,
   AIConversation,
   AIMessage,
+  Bookmark,
+  BookmarkTarget,
   Course,
   Country,
   EducationalLevel,
@@ -92,6 +94,12 @@ export interface DataStore {
     lessonId: string
   ): Promise<LearningProgress>;
   getProgressForUser(userId: string): Promise<LearningProgress[]>;
+
+  // ── Bookmarks ───────────────────────────────────────────────────────────
+  addBookmark(userId: string, targetType: BookmarkTarget, targetId: string): Promise<Bookmark>;
+  removeBookmark(userId: string, targetType: BookmarkTarget, targetId: string): Promise<void>;
+  listBookmarks(userId: string): Promise<Bookmark[]>;
+  isBookmarked(userId: string, targetType: BookmarkTarget, targetId: string): Promise<boolean>;
 
   // ── Quizzes ────────────────────────────────────────────────────────────
   saveQuizAttempt(attempt: QuizAttempt): Promise<QuizAttempt>;

@@ -95,6 +95,17 @@ export async function POST(request: Request) {
     .map((m) => ({ role: m.role, content: m.content }));
 
   const provider = getAIProvider();
+  if (!provider) {
+    return NextResponse.json(
+      {
+        ok: false,
+        error:
+          "The AI tutor is not configured yet. Add an OPENAI_API_KEY (or set ALLOW_DEMO_TUTOR=true in a demo environment) in .env.local to enable it.",
+        code: "ai_not_configured",
+      },
+      { status: 503 }
+    );
+  }
   let tutorReply: Awaited<ReturnType<typeof provider.chat>>;
 
   try {

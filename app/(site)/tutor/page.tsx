@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { TutorChat } from "@/components/tutor/TutorChat";
 import { getDataStore } from "@/services/data";
 import { requireUser } from "@/services/auth/session";
-import { isAIConfigured } from "@/services/ai";
+import { getTutorStatus } from "@/services/ai";
 
 export const metadata: Metadata = {
   title: "AI Tutor",
@@ -36,7 +36,7 @@ export default async function TutorPage() {
             title: c.title,
             updatedAt: c.updatedAt,
           }))}
-          demoProvider={!isAIConfigured()}
+          status={getTutorStatus()}
         />
       </div>
     </div>

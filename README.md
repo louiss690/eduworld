@@ -91,7 +91,9 @@ npm test
    `NEXT_PUBLIC_SUPABASE_ANON_KEY`), and the service-role key (`SUPABASE_SERVICE_ROLE_KEY`).
 4. In Supabase **Authentication → Providers**, enable **Email** and decide on
    "Confirm email" behaviour (recommended: on).
-5. Restart the dev server. The app now uses Supabase Auth + PostgreSQL.
+5. Run `database/migrations/003_student_features.sql` too (subject interests,
+   bookmarks).
+6. Restart the dev server. The app now uses Supabase Auth + PostgreSQL.
    Demo-mode badges disappear.
 
 > Note: the Supabase-backed store is exercised only when credentials are present.
@@ -108,8 +110,10 @@ OPENAI_API_KEY=sk-...
 
 The tutor endpoint is `POST /api/tutor/chat`. It includes request validation,
 per-IP+user rate limiting, topic whitelisting and a Socratic system prompt.
-If no key is configured, the UI clearly marks replies as **demo responses**
-rather than pretending a model is running.
+If no key is configured, the tutor refuses to respond (HTTP 503) and the UI
+shows a configuration-required state — the platform never fabricates AI
+responses. A clearly-labelled built-in demo tutor can be enabled explicitly
+for development with `ALLOW_DEMO_TUTOR=true`.
 
 ## Database schema
 

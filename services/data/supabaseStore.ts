@@ -4,6 +4,8 @@ import type {
   Achievement,
   AIConversation,
   AIMessage,
+  Bookmark,
+  BookmarkTarget,
   Course,
   Country,
   EducationalLevel,
@@ -244,13 +246,14 @@ export const supabaseStore: DataStore = {
       language_code: profile.languageCode,
       education_level_id: profile.educationLevelId,
       bio: profile.bio,
+      subject_ids: profile.subjectIds ?? [],
     });
     if (error) throw error;
   },
   async getStudentProfile(userId: string): Promise<StudentProfile | null> {
     const { data, error } = await db.from("student_profiles").select("*").eq("user_id", userId).maybeSingle();
     if (error || !data) return null;
-    return { userId: data.user_id, countryCode: data.country_code, languageCode: data.language_code, educationLevelId: data.education_level_id, bio: data.bio };
+    return { userId: data.user_id, countryCode: data.country_code, languageCode: data.language_code, educationLevelId: data.education_level_id, bio: data.bio, subjectIds: data.subject_ids ?? [] };
   },
   async setTeacherProfile(userId: string, profile: Partial<TeacherProfile>): Promise<void> {
     const { error } = await db.from("teacher_profiles").upsert({
@@ -328,6 +331,46 @@ export const supabaseStore: DataStore = {
     const { data, error } = await db.from("learning_progress").select("*").eq("user_id", userId);
     if (error) throw error;
     return (data ?? []).map((r) => ({ id: r.id, userId: r.user_id, courseId: r.course_id, lessonId: r.lesson_id, status: r.status, updatedAt: r.updated_at }));
+  },
+
+  // ── Bookmarks ──────────────────────────────────────────────────────────
+  async addBookmark(userId: string, targetType: BookmarkTarget, targetId: string): Promise<Bookmark> {
+    const { data, error } = await db
+      .from("bookmarks")
+      .upsert({ user_id: userId, target_type: targetType, target_id: targetId })
+      .select("id, user_id, target_type, target_id, created_at")
+      .single();
+    if (error) throw error;
+    return { id: data.id, userId: data.user_id, targetType: data.target_type, targetId: data.target_id, createdAt: data.created_at };
+  },
+  async removeBookmark(userId: string, targetType: BookmarkTarget, targetId: string): Promise<void> {
+    const { error } = await db
+      .from("bookmarks")
+      .delete()
+      .eq("user_id", userId)
+      .eq("target_type", targetType)
+      .eq("target_id", targetId);
+    if (error) throw error;
+  },
+  async listBookmarks(userId: string): Promise<Bookmark[]> {
+    const { data, error } = await db
+      .from("bookmarks")
+      .select("id, user_id, target_type, target_id, created_at")
+      .eq("user_id", userId)
+      .order("created_at", { ascending: false });
+    if (error) throw error;
+    return (data ?? []).map((r) => ({ id: r.id, userId: r.user_id, targetType: r.target_type, targetId: r.target_id, createdAt: r.created_at }));
+  },
+  async isBookmarked(userId: string, targetType: BookmarkTarget, targetId: string): Promise<boolean> {
+    const { data, error } = await db
+      .from("bookmarks")
+      .select("id")
+      .eq("user_id", userId)
+      .eq("target_type", targetType)
+      .eq("target_id", targetId)
+      .maybeSingle();
+    if (error) throw error;
+    return Boolean(data);
   },
 
   // ── Quizzes ───────────────────────────────────────────────────────────

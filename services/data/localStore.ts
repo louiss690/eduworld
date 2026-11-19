@@ -5,6 +5,8 @@ import type {
   Achievement,
   AIConversation,
   AIMessage,
+  Bookmark,
+  BookmarkTarget,
   Course,
   Country,
   EducationalLevel,
@@ -54,6 +56,7 @@ interface LocalState {
   quizzes: Quiz[];
   courses: Course[];
   lessons: Lesson[];
+  bookmarks: Bookmark[];
 }
 
 function emptyState(): LocalState {
@@ -72,6 +75,7 @@ function emptyState(): LocalState {
     quizzes: [],
     courses: [],
     lessons: [],
+    bookmarks: [],
   };
 }
 
@@ -100,6 +104,15 @@ class LocalStore implements DataStore {
   private state: LocalState;
 
   constructor() {
+    this.state = this.load();
+  }
+
+  /**
+   * Reloads state from disk. Called before every public operation so that
+   * the multiple module graphs Next.js uses (RSC pages vs route handlers)
+   * always see each other's writes.
+   */
+  freshen(): void {
     this.state = this.load();
   }
 
@@ -226,6 +239,7 @@ class LocalStore implements DataStore {
         languageCode: "en",
         educationLevelId: null,
         bio: null,
+        subjectIds: [],
       });
     } else {
       this.state.teacherProfiles.push({ userId: user.id, bio: null, subjectIds: [] });
@@ -258,6 +272,7 @@ class LocalStore implements DataStore {
       languageCode: "en",
       educationLevelId: null,
       bio: null,
+      subjectIds: [],
     };
     const next: StudentProfile = {
       userId,
@@ -265,6 +280,7 @@ class LocalStore implements DataStore {
       languageCode: profile.languageCode ?? current.languageCode,
       educationLevelId: profile.educationLevelId ?? current.educationLevelId,
       bio: profile.bio ?? current.bio,
+      subjectIds: Array.isArray(profile.subjectIds) ? profile.subjectIds : current.subjectIds,
     };
     const idx = this.state.studentProfiles.findIndex((p) => p.userId === userId);
     if (idx >= 0) this.state.studentProfiles[idx] = next;
@@ -367,6 +383,40 @@ class LocalStore implements DataStore {
   }
   async getProgressForUser(userId: string): Promise<LearningProgress[]> {
     return this.state.progress.filter((p) => p.userId === userId);
+  }
+
+  // ── Bookmarks ──────────────────────────────────────────────────────────
+  async addBookmark(userId: string, targetType: BookmarkTarget, targetId: string): Promise<Bookmark> {
+    const existing = this.state.bookmarks.find(
+      (b) => b.userId === userId && b.targetType === targetType && b.targetId === targetId
+    );
+    if (existing) return existing;
+    const bookmark: Bookmark = {
+      id: randomUUID(),
+      userId,
+      targetType,
+      targetId,
+      createdAt: new Date().toISOString(),
+    };
+    this.state.bookmarks.push(bookmark);
+    this.persist();
+    return bookmark;
+  }
+  async removeBookmark(userId: string, targetType: BookmarkTarget, targetId: string): Promise<void> {
+    this.state.bookmarks = this.state.bookmarks.filter(
+      (b) => !(b.userId === userId && b.targetType === targetType && b.targetId === targetId)
+    );
+    this.persist();
+  }
+  async listBookmarks(userId: string): Promise<Bookmark[]> {
+    return this.state.bookmarks
+      .filter((b) => b.userId === userId)
+      .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  }
+  async isBookmarked(userId: string, targetType: BookmarkTarget, targetId: string): Promise<boolean> {
+    return this.state.bookmarks.some(
+      (b) => b.userId === userId && b.targetType === targetType && b.targetId === targetId
+    );
   }
 
   // ── Quizzes ───────────────────────────────────────────────────────────
@@ -492,9 +542,23 @@ class LocalStore implements DataStore {
   }
 }
 
-let singleton: LocalStore | null = null;
+let singleton: DataStore | null = null;
 
 export function getLocalStore(): DataStore {
-  if (!singleton) singleton = new LocalStore();
+  if (!singleton) {
+    const raw = new LocalStore();
+    singleton = new Proxy(raw, {
+      get(target, prop) {
+        const value = (target as unknown as Record<string, unknown>)[prop as string];
+        if (typeof value === "function") {
+          return (...args: unknown[]) => {
+            target.freshen();
+            return Reflect.apply(value, target, args);
+          };
+        }
+        return value;
+      },
+    }) as DataStore;
+  }
   return singleton;
 }
