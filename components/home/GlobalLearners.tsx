@@ -12,7 +12,7 @@ const LEARNERS = [
   },
   {
     src: "/images/photos/global-learners-2.jpg",
-    alt: "A Black student collaborating on study work with a laptop",
+    alt: "A student collaborating on study work with a laptop",
   },
   {
     src: "/images/photos/global-learners-3.jpg",
