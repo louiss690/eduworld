@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { CourseCard } from "@/components/courses/CourseCard";
+import { Reveal } from "@/components/ui/Reveal";
 import { getDataStore } from "@/services/data";
 import { toCourseCards } from "@/services/catalog";
 
@@ -56,8 +57,10 @@ export default async function SubjectPage({
         <h2 className="text-xl font-bold text-navy-950">Courses in {subject.name}</h2>
         {cards.length > 0 ? (
           <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {cards.map((card) => (
-              <CourseCard key={card.course.id} card={card} />
+            {cards.map((card, i) => (
+              <Reveal key={card.course.id} delay={i * 70} className="h-full">
+                <CourseCard card={card} />
+              </Reveal>
             ))}
           </div>
         ) : (

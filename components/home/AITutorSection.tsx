@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Bot, ChevronRight, Lightbulb, Send, Target } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
+import { Reveal } from "@/components/ui/Reveal";
 
 const FEATURES = [
   {
@@ -19,7 +20,7 @@ export function AITutorSection() {
   return (
     <section id="ai-tutor" className="bg-navy-950 py-20 text-white lg:py-24">
       <div className="wrap grid grid-cols-1 items-center gap-14 lg:grid-cols-2">
-        <div>
+        <Reveal>
           <p className="text-[13px] font-semibold uppercase tracking-[0.14em] text-brand-300">
             AI Tutor
           </p>
@@ -33,8 +34,8 @@ export function AITutorSection() {
           </p>
 
           <ul className="mt-8 space-y-5">
-            {FEATURES.map((f) => (
-              <li key={f.title} className="flex gap-4">
+            {FEATURES.map((f, i) => (
+              <Reveal key={f.title} as="li" delay={i * 100} className="flex gap-4">
                 <span className="grid size-10 shrink-0 place-items-center rounded-lg bg-white/10 text-brand-200">
                   <f.icon className="size-5" aria-hidden />
                 </span>
@@ -42,18 +43,18 @@ export function AITutorSection() {
                   <h3 className="font-semibold text-white">{f.title}</h3>
                   <p className="mt-1 text-sm leading-relaxed text-navy-300">{f.text}</p>
                 </div>
-              </li>
+              </Reveal>
             ))}
           </ul>
 
-          <Link href="/tutor" className="btn-primary mt-9 btn-lg">
+          <Link href="/tutor" className="btn-primary mt-9 btn-lg lift">
             <Bot className="size-4" /> Try the AI Tutor
           </Link>
-        </div>
+        </Reveal>
 
         {/* Chat preview — a static, honest mock of the tutor interface */}
-        <div className="relative">
-          <div className="card overflow-hidden bg-white !text-ink">
+        <Reveal delay={150} className="relative">
+          <div className="anim-float card overflow-hidden bg-white !text-ink">
             <div className="flex items-center gap-3 border-b border-line bg-paper px-5 py-3.5">
               <span className="grid size-9 place-items-center rounded-full bg-navy-950 text-white">
                 <Bot className="size-4.5" aria-hidden />
@@ -92,7 +93,7 @@ export function AITutorSection() {
             <Logo mark={false} className="[&_span]:text-white [&_span]:text-sm" />
             {" "}· Patient, step-by-step coaching
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Globe, Mail, MessageCircle, Rss } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
+import { Reveal } from "@/components/ui/Reveal";
 
 const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
   {
@@ -43,7 +44,7 @@ export function SiteFooter() {
   return (
     <footer className="bg-navy-950 text-navy-200">
       <div className="wrap grid grid-cols-1 gap-10 py-14 sm:grid-cols-2 lg:grid-cols-5">
-        <div className="lg:col-span-2">
+        <Reveal className="lg:col-span-2">
           <Link href="/" className="inline-block [&_span]:text-white">
             <Logo />
           </Link>
@@ -57,27 +58,27 @@ export function SiteFooter() {
                 key={s.label}
                 href={s.href}
                 aria-label={s.label}
-                className="grid size-9 place-items-center rounded-lg border border-white/10 text-navy-300 transition-colors hover:border-white/25 hover:text-white"
+                className="grid size-9 place-items-center rounded-lg border border-white/10 text-navy-300 transition-all duration-200 hover:-translate-y-0.5 hover:border-white/25 hover:text-white"
               >
                 <s.icon className="size-4" />
               </a>
             ))}
           </div>
-        </div>
+        </Reveal>
 
-        {COLUMNS.map((col) => (
-          <div key={col.title}>
+        {COLUMNS.map((col, i) => (
+          <Reveal key={col.title} delay={120 + i * 80}>
             <h3 className="text-sm font-semibold text-white">{col.title}</h3>
             <ul className="mt-4 space-y-2.5">
               {col.links.map((link) => (
                 <li key={link.label}>
-                  <Link href={link.href} className="text-sm text-navy-300 transition-colors hover:text-white">
+                  <Link href={link.href} className="text-sm text-navy-300 transition-colors duration-200 hover:text-white">
                     {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
-          </div>
+          </Reveal>
         ))}
       </div>
 

@@ -1,4 +1,5 @@
 import { BookOpenCheck, Search, UserPlus } from "lucide-react";
+import { Reveal } from "@/components/ui/Reveal";
 
 const STEPS = [
   {
@@ -22,7 +23,7 @@ export function HowItWorks() {
   return (
     <section className="py-20 lg:py-24" aria-labelledby="how-heading">
       <div className="wrap">
-        <div className="mx-auto max-w-2xl text-center">
+        <Reveal className="mx-auto max-w-2xl text-center">
           <p className="eyebrow">How EduWorld works</p>
           <h2 id="how-heading" className="section-title mt-3">
             Learning, made simple
@@ -30,14 +31,14 @@ export function HowItWorks() {
           <p className="mt-4 text-base leading-relaxed text-muted">
             Three steps between you and your next skill.
           </p>
-        </div>
+        </Reveal>
 
         <ol className="mt-14 grid grid-cols-1 gap-8 md:grid-cols-3">
           {STEPS.map((step, i) => (
-            <li key={step.title} className="relative">
-              <div className="card h-full p-7">
+            <Reveal key={step.title} as="li" delay={i * 120} className="relative">
+              <div className="card lift h-full p-7 hover:shadow-md">
                 <div className="flex items-center justify-between">
-                  <span className="grid size-12 place-items-center rounded-xl bg-brand-50 text-brand-700">
+                  <span className="grid size-12 place-items-center rounded-xl bg-brand-50 text-brand-700 transition-colors duration-200 group-hover:bg-brand-100">
                     <step.icon className="size-6" aria-hidden />
                   </span>
                   <span className="text-4xl font-bold text-navy-100">0{i + 1}</span>
@@ -45,7 +46,7 @@ export function HowItWorks() {
                 <h3 className="mt-5 text-lg font-semibold text-navy-950">{step.title}</h3>
                 <p className="mt-2.5 text-[15px] leading-relaxed text-muted">{step.text}</p>
               </div>
-            </li>
+            </Reveal>
           ))}
         </ol>
       </div>

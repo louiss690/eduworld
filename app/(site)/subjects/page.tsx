@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, BookOpen } from "lucide-react";
+import { Reveal } from "@/components/ui/Reveal";
 import { getDataStore } from "@/services/data";
 
 export const metadata: Metadata = {
@@ -29,13 +30,13 @@ export default async function SubjectsPage() {
       </div>
 
       <ul className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {subjects.map((subject) => {
+        {subjects.map((subject, i) => {
           const courseCount = courses.filter((c) => c.subjectId === subject.id).length;
           return (
-            <li key={subject.id}>
+            <Reveal key={subject.id} as="li" delay={(i % 3) * 80}>
               <Link
                 href={`/subjects/${subject.slug}`}
-                className="card group block overflow-hidden transition-shadow hover:shadow-md"
+                className="card lift group block h-full overflow-hidden hover:shadow-md"
               >
                 <div className="relative aspect-[16/8] bg-navy-100">
                   {subject.imageUrl ? (
@@ -61,7 +62,7 @@ export default async function SubjectsPage() {
                   </p>
                 </div>
               </Link>
-            </li>
+            </Reveal>
           );
         })}
       </ul>

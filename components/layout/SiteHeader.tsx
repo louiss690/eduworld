@@ -41,9 +41,10 @@ export function SiteHeader() {
               <Link
                 key={link.href}
                 href={link.href}
+                aria-current={active ? "page" : undefined}
                 className={cn(
-                  "rounded-lg px-3 py-2 text-sm font-medium transition-colors",
-                  active ? "text-brand-700" : "text-navy-800 hover:bg-paper hover:text-navy-950"
+                  "nav-link rounded-lg px-3 py-2 text-sm font-medium transition-colors duration-200",
+                  active ? "text-brand-700" : "text-navy-800 hover:text-navy-950"
                 )}
               >
                 {link.label}

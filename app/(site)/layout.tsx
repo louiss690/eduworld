@@ -1,6 +1,7 @@
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { PwaRegister } from "@/components/pwa/PwaRegister";
+import { AnimationGuard } from "@/components/ui/AnimationGuard";
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -9,6 +10,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
       <main className="flex-1">{children}</main>
       <SiteFooter />
       <PwaRegister />
+      <AnimationGuard />
     </div>
   );
 }

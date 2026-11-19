@@ -9,7 +9,7 @@ export function CourseCard({ card }: { card: CourseCardType }) {
   const href = `/courses/${course.slug}`;
 
   return (
-    <article className="card group flex flex-col overflow-hidden transition-shadow hover:shadow-md">
+    <article className="card lift group flex h-full flex-col overflow-hidden hover:shadow-md">
       <Link href={href} className="relative block aspect-[16/9] overflow-hidden bg-navy-100">
         {course.imageUrl ? (
           <Image
@@ -17,7 +17,7 @@ export function CourseCard({ card }: { card: CourseCardType }) {
             alt=""
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+            className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.05]"
           />
         ) : (
           <div className="grid size-full place-items-center text-navy-300">

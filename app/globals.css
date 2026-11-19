@@ -85,14 +85,27 @@ body {
   }
 
   /* Button base — shared by every button variant (Tailwind v4 can't apply
-     custom classes, so the base is grouped with all variants). */
+     custom classes, so the base is grouped with all variants). Includes
+     subtle lift-on-hover and press feedback. */
   .btn,
   .btn-primary,
   .btn-secondary,
   .btn-ghost {
     @apply inline-flex items-center justify-center gap-2 rounded-lg text-sm font-semibold
-      transition-colors duration-150 cursor-pointer select-none whitespace-nowrap
+      cursor-pointer select-none whitespace-nowrap
       disabled:opacity-50 disabled:pointer-events-none;
+    transition:
+      color 0.15s ease,
+      background-color 0.15s ease,
+      border-color 0.15s ease,
+      box-shadow 0.18s var(--ease-out-soft),
+      transform 0.18s var(--ease-out-soft);
+  }
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+  .btn:active {
+    transform: translateY(0) scale(0.98);
   }
 
   .btn-primary {
@@ -172,4 +185,139 @@ body {
   .prose-edu ol {
     @apply mb-4 list-decimal pl-6 space-y-1.5;
   }
+}
+
+/* ────────────────────────────────────────────────────────────────────────────
+   Motion system
+   Subtle, professional motion: fade-up reveals, gentle floats, hover lifts.
+   All animations are transform/opacity only (GPU-friendly) and are disabled
+   entirely under prefers-reduced-motion.
+   ──────────────────────────────────────────────────────────────────────────── */
+
+@theme {
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer utilities {
+  /* Entrance on load (hero) */
+  .hero-anim {
+    opacity: 0;
+    animation: heroFadeUp 0.7s var(--ease-out-soft) forwards;
+  }
+
+  @keyframes heroFadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Scroll-triggered reveal (state toggled by the Reveal component) */
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 0.6s var(--ease-out-soft),
+      transform 0.6s var(--ease-out-soft);
+    will-change: opacity, transform;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-scale {
+    transform: scale(0.97);
+  }
+  .reveal-scale.is-visible {
+    transform: scale(1);
+  }
+
+  /* Gentle perpetual float (hero media, AI chat preview) */
+  .anim-float {
+    animation: floatY 6s ease-in-out infinite;
+  }
+  @keyframes floatY {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  /* Card hover lift (buttons, cards, links) */
+  .lift {
+    transition:
+      transform 0.18s var(--ease-out-soft),
+      box-shadow 0.18s var(--ease-out-soft),
+      background-color 0.15s ease,
+      border-color 0.15s ease;
+  }
+  .lift:hover {
+    transform: translateY(-3px);
+  }
+  .lift:active {
+    transform: translateY(-1px) scale(0.985);
+  }
+
+  /* Navigation link animated underline */
+  .nav-link {
+    position: relative;
+  }
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: 0.15rem;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s var(--ease-out-soft);
+  }
+  .nav-link:hover::after,
+  .nav-link[aria-current="page"]::after {
+    transform: scaleX(1);
+  }
+}
+
+/* Respect reduced motion: collapse all animation/transition durations. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+  .hero-anim,
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .anim-float {
+    animation: none !important;
+  }
+}
+
+/*
+ * Safety net: if entrance animations are ever prevented from completing
+ * (e.g. a browser throttles its animation clock), the AnimationGuard adds
+ * `anim-ready` to <body>, which reveals all entrance content instantly.
+ * Normal browsers never reach this state.
+ */
+body.anim-ready .hero-anim,
+body.anim-ready .reveal {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
 }

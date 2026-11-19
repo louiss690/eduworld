@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Search, SlidersHorizontal } from "lucide-react";
 import { CourseCard } from "@/components/courses/CourseCard";
+import { Reveal } from "@/components/ui/Reveal";
 import { getDataStore } from "@/services/data";
 import { filterCourses, toCourseCards } from "@/services/catalog";
 
@@ -113,8 +114,10 @@ export default async function LibraryPage({
         </p>
         {cards.length > 0 ? (
           <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {cards.map((card) => (
-              <CourseCard key={card.course.id} card={card} />
+            {cards.map((card, i) => (
+              <Reveal key={card.course.id} delay={(i % 8) * 60} className="h-full">
+                <CourseCard card={card} />
+              </Reveal>
             ))}
           </div>
         ) : (

@@ -15,7 +15,7 @@ import {
 import { getDataStore } from "@/services/data";
 import { requireUser } from "@/services/auth/session";
 import { buildStudentSummary } from "@/services/dashboard";
-import { formatDurationMinutes } from "@/lib/utils";
+import { CountUp } from "@/components/ui/CountUp";
 import { initials } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -185,21 +185,27 @@ export default async function DashboardPage() {
             <dl className="mt-5 grid grid-cols-2 gap-x-4 gap-y-6">
               <div>
                 <dt className="text-[13px] text-muted">Enrolled courses</dt>
-                <dd className="mt-1 text-2xl font-bold text-navy-950">{summary.enrolledCourses}</dd>
+                <dd className="mt-1 text-2xl font-bold tabular-nums text-navy-950">
+                  <CountUp value={summary.enrolledCourses} />
+                </dd>
               </div>
               <div>
                 <dt className="text-[13px] text-muted">Completed lessons</dt>
-                <dd className="mt-1 text-2xl font-bold text-navy-950">{summary.completedLessons}</dd>
+                <dd className="mt-1 text-2xl font-bold tabular-nums text-navy-950">
+                  <CountUp value={summary.completedLessons} />
+                </dd>
               </div>
               <div>
                 <dt className="text-[13px] text-muted">Average quiz score</dt>
-                <dd className="mt-1 text-2xl font-bold text-navy-950">
-                  {summary.averageQuizScore === null ? "—" : `${summary.averageQuizScore}%`}
+                <dd className="mt-1 text-2xl font-bold tabular-nums text-navy-950">
+                  {summary.averageQuizScore === null ? "—" : <CountUp value={summary.averageQuizScore} suffix="%" />}
                 </dd>
               </div>
               <div>
                 <dt className="text-[13px] text-muted">Quizzes taken</dt>
-                <dd className="mt-1 text-2xl font-bold text-navy-950">{summary.quizzesTaken}</dd>
+                <dd className="mt-1 text-2xl font-bold tabular-nums text-navy-950">
+                  <CountUp value={summary.quizzesTaken} />
+                </dd>
               </div>
             </dl>
           </section>
