@@ -1,0 +1,247 @@
+-- ═══════════════════════════════════════════════════════════════════════════
+-- EduWorld — starter content
+-- Countries, languages, levels, subjects, achievements and a demonstration
+-- catalog (courses, lessons, quizzes). All content rows carry is_demo = true
+-- and are labelled in the UI so users can tell starter content from real
+-- educator-authored content.
+-- ═══════════════════════════════════════════════════════════════════════════
+
+begin;
+
+-- ── Reference data ──────────────────────────────────────────────────────────
+
+insert into countries (code, name) values
+  ('KE','Kenya'), ('NG','Nigeria'), ('GH','Ghana'), ('ZA','South Africa'),
+  ('IN','India'), ('BR','Brazil'), ('FR','France'), ('ES','Spain'),
+  ('US','United States'), ('UK','United Kingdom'), ('CA','Canada'), ('AU','Australia');
+
+insert into languages (code, name, native_name, available) values
+  ('en','English','English',true),
+  ('fr','French','Français',false),
+  ('es','Spanish','Español',false),
+  ('pt','Portuguese','Português',false),
+  ('ar','Arabic','العربية',false),
+  ('sw','Swahili','Kiswahili',false),
+  ('tw','Twi','Twi',false),
+  ('hi','Hindi','हिन्दी',false);
+
+insert into educational_levels (id, slug, name, display_order) values
+  ('lvl-primary','primary','Primary School',1),
+  ('lvl-lower-sec','lower-secondary','Lower Secondary',2),
+  ('lvl-upper-sec','upper-secondary','Upper Secondary',3),
+  ('lvl-college','college','College & University',4),
+  ('lvl-self','self-directed','Self-directed Learning',5);
+
+insert into subjects (id, slug, name, short_description, description, image_url, icon_key) values
+  ('subj-math','mathematics','Mathematics','Numbers, algebra, geometry and problem solving.','Build confidence with numbers and logical thinking. From arithmetic foundations to algebra, geometry and statistics.','/images/photos/math-student.jpg','calculator'),
+  ('subj-science','science','Science','Biology, chemistry and physics for curious minds.','Explore the living and physical world through clear explanations, real experiments and practical examples.','/images/photos/science-lab.jpg','flask-conical'),
+  ('subj-english','english','English','Reading, writing, grammar and communication.','Strengthen your reading, writing and speaking skills in English — the global language of education and work.','/images/photos/library-books.jpg','book-open'),
+  ('subj-cs','computer-science','Computer Science','Programming, logic and the digital world.','Learn how computers think, write your first programs and understand the technology shaping the world.','/images/photos/coding-screen.jpg','code-2'),
+  ('subj-history','history','History','Understanding the past to shape the future.','Study the people, events and ideas that shaped our world, from ancient civilisations to the modern age.','/images/photos/history-archive.jpg','landmark'),
+  ('subj-geography','geography','Geography','People, places and the planet we share.','Discover how landscapes, climate and human activity shape life in every corner of the world.','/images/photos/geography-map.jpg','map'),
+  ('subj-econ','economics','Economics','How money, markets and choices work.','Understand how individuals, businesses and governments make decisions with limited resources.','/images/photos/business-meeting.jpg','trending-up'),
+  ('subj-languages','languages','Languages','Learn to communicate across cultures.','Study new languages and unlock conversations, cultures and opportunities across borders.','/images/photos/languages-chat.jpg','message-square'),
+  ('subj-tech','technology','Technology','Digital skills for the modern world.','Practical digital skills: productivity tools, internet safety, spreadsheets, and working online.','/images/photos/team-coding.jpg','cpu'),
+  ('subj-business','business-studies','Business Studies','Entrepreneurship, management and enterprise.','Learn how businesses start, grow and succeed — and how you can turn an idea into a venture.','/images/photos/business-meeting.jpg','briefcase');
+
+-- ── Achievements ────────────────────────────────────────────────────────────
+
+insert into achievements (id, slug, name, description) values
+  ('achv-first-lesson','first-lesson','First Steps','Complete your first lesson.'),
+  ('achv-first-quiz','first-quiz','Tested','Submit your first quiz.'),
+  ('achv-quiz-ace','quiz-ace','Quiz Ace','Score 90% or above on any quiz.'),
+  ('achv-course-complete','course-complete','Course Conqueror','Complete every lesson in a course.'),
+  ('achv-ten-lessons','ten-lessons','Momentum','Complete ten lessons in total.');
+
+-- ── Courses ─────────────────────────────────────────────────────────────────
+
+insert into courses (id, slug, title, subject_id, level, format, description, long_description, image_url, instructor, published, featured, is_demo) values
+  ('course-algebra','algebra-foundations','Algebra Foundations','subj-math','beginner','course',
+   'Master the language of algebra: variables, expressions, equations and the first steps of graphing.',
+   'Algebra is where mathematics starts to speak a new language. This course builds a solid foundation, step by step, with clear explanations and plenty of guided practice.',
+   '/images/photos/math-student.jpg','{"name":"Dr. Amara Okafor","title":"Mathematics Lead"}', true, true, true),
+  ('course-cells','cells-and-life-processes','Cells & Life Processes','subj-science','beginner','course',
+   'Explore the building blocks of life — from cells to the systems that keep organisms alive.',
+   'Every living thing is made of cells. Discover what cells are, how they work, and how tiny structures inside them power everything from breathing to growth.',
+   '/images/photos/science-lab.jpg','{"name":"Prof. Liam Mensah","title":"Head of Science"}', true, true, true),
+  ('course-academic-writing','english-for-academic-writing','English for Academic Writing','subj-english','intermediate','course',
+   'Write clear, confident paragraphs and essays — a skill for school, university and work.',
+   'Academic writing is a muscle. This course trains you to structure paragraphs, build arguments, and express ideas with precision.',
+   '/images/photos/library-books.jpg','{"name":"Sarah Chen","title":"English Faculty"}', true, true, true),
+  ('course-python','introduction-to-python','Introduction to Programming with Python','subj-cs','beginner','course',
+   'Write your first programs and think like a programmer with the world''s friendliest language.',
+   'Programming is a superpower. This course teaches the core ideas — variables, conditions, loops and functions — using Python.',
+   '/images/photos/coding-screen.jpg','{"name":"Kenji Watanabe","title":"Software Engineer & Educator"}', true, true, true),
+  ('course-modern-world','the-modern-world','The Modern World: A 20th Century History','subj-history','intermediate','course',
+   'Understand the wars, ideas and movements that made our world what it is today.',
+   'The twentieth century transformed humanity. This course connects the big events — from world wars to decolonisation and the digital revolution — and shows why they still matter.',
+   '/images/photos/history-archive.jpg','{"name":"Dr. Sofia Ramirez","title":"History Department"}', true, false, true),
+  ('course-physical-geography','our-planet-physical-geography','Our Planet: Physical Geography','subj-geography','beginner','course',
+   'Rivers, climates, landscapes and the water cycle — the Earth''s systems explained.',
+   'Why do deserts form where they do? Where does rain come from? This course unpacks the Earth''s physical systems with vivid examples from around the world.',
+   '/images/photos/geography-map.jpg','{"name":"James Okello","title":"Geography Faculty"}', true, false, true),
+  ('course-economics-everyday','economics-in-everyday-life','Economics in Everyday Life','subj-econ','beginner','course',
+   'See the invisible forces behind prices, choices and markets all around you.',
+   'Economics is the story of how we make choices. From the price of bread to why firms advertise, this course gives you a practical toolkit to understand the economy.',
+   '/images/photos/business-meeting.jpg','{"name":"Priya Nair","title":"Economics Faculty"}', true, false, true),
+  ('course-business-fundamentals','business-fundamentals','Business Fundamentals','subj-business','beginner','course',
+   'How businesses work: customers, value, money and simple business planning.',
+   'Whether you dream of starting a company or simply want to understand the one you might work for, this course explains the essentials.',
+   '/images/photos/classroom-work.jpg','{"name":"Grace Achebe","title":"Business Studies Lead"}', true, false, true);
+
+-- ── Lessons (condensed seed blocks) ─────────────────────────────────────────
+
+insert into lessons (id, course_id, title, description, objectives, blocks, minutes, position) values
+  ('lesson-algebra-1','course-algebra','What is Algebra?','Meet the idea of the unknown and why algebra exists.',
+   '["Understand why algebra uses letters for unknown numbers","Recognise algebraic expressions in everyday situations"]',
+   '[{"type":"paragraph","text":"Algebra is a way of using letters to stand for numbers we do not know yet. Instead of asking what number plus 5 equals 9, an algebraist writes x + 5 = 9."},{"type":"example","title":"Everyday algebra","text":"If a taxi charges $3 per kilometre plus a $2 base fare, the cost C for d kilometres is C = 3d + 2."}]',12,1),
+  ('lesson-algebra-2','course-algebra','Simplifying Expressions','Combine like terms to make expressions cleaner and easier to use.',
+   '["Identify like terms","Combine like terms correctly"]',
+   '[{"type":"paragraph","text":"Like terms have exactly the same variable part: 3x and 5x combine to 8x, but 3x and 5y cannot be combined."},{"type":"example","title":"Combining","text":"Simplify 4x + 2 − x + 9: 4x − x = 3x and 2 + 9 = 11, so the result is 3x + 11."}]',15,2),
+  ('lesson-algebra-3','course-algebra','Solving Equations','Find the value of the unknown using balance.',
+   '["Understand an equation as a balanced scale","Solve one-step equations"]',
+   '[{"type":"paragraph","text":"An equation is like a balance scale: whatever you do to one side, you must do to the other. To solve for x, isolate it on one side."},{"type":"example","title":"One-step equation","text":"Solve x + 7 = 15: subtract 7 from both sides to get x = 8."}]',18,3),
+  ('lesson-algebra-4','course-algebra','Graphing Basics','See equations as lines on a coordinate grid.',
+   '["Plot points on a coordinate plane","Understand why y = x graphs as a straight line"]',
+   '[{"type":"paragraph","text":"The coordinate plane uses two axes: x (horizontal) and y (vertical). An equation like y = 2x describes a whole set of points that form a line."},{"type":"example","title":"Plotting","text":"For y = 2x, x = 1 gives y = 2, x = 3 gives y = 6. Join the points to get a straight line."}]',16,4),
+  ('lesson-cells-1','course-cells','The Cell: Life''s Building Block','What cells are, what they contain, and why size matters.',
+   '["Describe what a cell is","Name the main parts of an animal cell"]',
+   '[{"type":"paragraph","text":"All living things are made of cells — the smallest unit that can be called alive. A cell is a tiny factory enclosed in a membrane."},{"type":"list","ordered":false,"items":["Cell membrane — boundary that controls what enters and leaves","Nucleus — control centre containing DNA","Mitochondria — powerhouses that release energy"]}]',14,1),
+  ('lesson-cells-2','course-cells','Plant Cells and the Special Features of Life','What plant cells have that animal cells do not.',
+   '["Compare plant and animal cells","Explain the role of the cell wall and chloroplasts"]',
+   '[{"type":"paragraph","text":"Plant cells add three special features: a cell wall for support, chloroplasts for photosynthesis, and a large vacuole for storing water."},{"type":"callout","tone":"info","text":"Photosynthesis is where chloroplasts use sunlight, water and carbon dioxide to make glucose and oxygen."}]',13,2),
+  ('lesson-cells-3','course-cells','Specialised Cells','How cells become experts at one job.',
+   '["Define differentiation","Match cell types to their functions"]',
+   '[{"type":"paragraph","text":"Cells specialise through differentiation: some become muscle cells, others neurons, others red blood cells. Each shape is suited to its job."},{"type":"list","ordered":false,"items":["Red blood cells — disc-shaped to carry oxygen","Nerve cells — long and branched to carry signals","Root hair cells — long extensions to absorb water"]}]',12,3),
+  ('lesson-cells-4','course-cells','From Cells to Systems','How trillions of cells cooperate to keep you alive.',
+   '["Order the levels of organisation in the body","Give an example of an organ system"]',
+   '[{"type":"paragraph","text":"Cells form tissues, tissues form organs, organs form systems, and systems form the whole organism. This organisation lets a body do far more than any single cell could."},{"type":"exercise","prompt":"Put in order from smallest to largest: organ, cell, organism, tissue."}]',15,4),
+  ('lesson-writing-1','course-academic-writing','The Anatomy of a Paragraph','Topic sentences, support and concluding sentences.',
+   '["Identify the three parts of a paragraph","Write a clear topic sentence"]',
+   '[{"type":"paragraph","text":"A paragraph is a unit of thought: a topic sentence states the main idea, supporting sentences develop it, and a concluding sentence ties it together."},{"type":"example","title":"Topic sentence","text":"Weak: Education is important. Strong: Education reduces poverty by opening doors to better-paid work and building skills communities need to grow."}]',16,1),
+  ('lesson-writing-2','course-academic-writing','Building an Argument','Claims, evidence and explanation.',
+   '["Define a claim","Explain how evidence supports a claim"]',
+   '[{"type":"paragraph","text":"An argument has three parts: a claim, evidence, and reasoning that explains how the evidence supports the claim. Without reasoning, evidence is just a list."},{"type":"example","title":"Claim + evidence + reasoning","text":"Claim: Regular reading improves writing. Evidence: students who read 20 minutes daily scored 12% higher. Reasoning: reading exposes students to varied structures and vocabulary."}]',18,2),
+  ('lesson-writing-3','course-academic-writing','Editing Your Own Work','The difference between drafting and polishing.',
+   '["Edit for clarity before grammar","Cut unnecessary words"]',
+   '[{"type":"paragraph","text":"First drafts are allowed to be rough. Edit in two passes: structure and meaning first, then grammar and punctuation."},{"type":"example","title":"Cut the fluff","text":"Before: In my opinion, I think the results are very significant indeed. After: The results are significant."}]',14,3),
+  ('lesson-python-1','course-python','Your First Program','Printing, variables and talking to the computer.',
+   '["Run a simple Python program","Create and use variables"]',
+   '[{"type":"paragraph","text":"Python is a language for giving computers instructions. print() displays text, and variables store values for later use."},{"type":"example","title":"Hello","text":"print(''Hello, world!'') prints Hello, world! name = ''Amina'' then print(name) prints Amina."}]',15,1),
+  ('lesson-python-2','course-python','Making Decisions','If, elif and else — giving your program a brain.',
+   '["Write an if statement","Use comparison operators"]',
+   '[{"type":"paragraph","text":"Programs make choices with if statements — they check a condition and run different code depending on whether it is true or false."},{"type":"example","title":"Checking a score","text":"if score >= 60: print(''Pass'') else: print(''Retake'') — note the colon and indentation."}]',16,2),
+  ('lesson-python-3','course-python','Loops','Repeat work without repeating code.',
+   '["Write a for loop","Iterate over a range of numbers"]',
+   '[{"type":"paragraph","text":"A loop repeats a block of code. The for loop walks through a sequence of values, running its body once per value."},{"type":"example","title":"Counting","text":"for i in range(1, 4): print(i) prints 1, 2, 3 — range stops before the end value."}]',17,3),
+  ('lesson-python-4','course-python','Functions','Pack code into reusable building blocks.',
+   '["Define a function with def","Pass arguments and return values"]',
+   '[{"type":"paragraph","text":"A function is a named block of code you can run again and again. It takes inputs (arguments) and can hand back a result with return."},{"type":"example","title":"Doubling","text":"def double(x): return x * 2 — print(double(5)) prints 10."}]',18,4),
+  ('lesson-history-1','course-modern-world','The World in 1900','The global order at the dawn of the twentieth century.',
+   '["Describe the state of world empires in 1900","Identify tensions building before 1914"]',
+   '[{"type":"paragraph","text":"In 1900 a handful of European empires controlled most of Africa and Asia. Industrialisation made them wealthy, but also suspicious of each other."},{"type":"callout","tone":"info","text":"The alliance system and arms race of 1900 made a world war increasingly likely."}]',16,1),
+  ('lesson-history-2','course-modern-world','The World Wars','How two conflicts reshaped the planet.',
+   '["Summarise the causes of World War I","Explain how World War II differed from World War I"]',
+   '[{"type":"paragraph","text":"World War I (1914–1918) began with a spark in Sarajevo but had deeper causes: rival alliances, nationalism and imperial competition. World War II (1939–1945) was broader, more mobile and introduced unprecedented devastation."},{"type":"callout","tone":"warning","text":"The wars together took an estimated 70–85 million lives. Historians work to keep individual human stories at the centre of such numbers."}]',20,2),
+  ('lesson-history-3','course-modern-world','Decolonisation & the Modern Age','The end of empire and the world we live in now.',
+   '["Explain what decolonisation was","Give examples of newly independent nations"]',
+   '[{"type":"paragraph","text":"After World War II the colonial empires unravelled quickly. Between 1945 and 1975 dozens of nations — from India and Ghana to Kenya and Vietnam — won independence."},{"type":"example","title":"Ghana, 1957","text":"Under Kwame Nkrumah, the Gold Coast became Ghana in 1957 — the first sub-Saharan African colony to gain independence."}]',17,3),
+  ('lesson-geo-1','course-physical-geography','The Water Cycle','Earth''s endless journey of water.',
+   '["Name the stages of the water cycle","Explain how evaporation and condensation work"]',
+   '[{"type":"paragraph","text":"The sun evaporates water from oceans, lakes and soil. It rises, cools and condenses into clouds, then falls as rain or snow, and rivers carry it back to the sea."},{"type":"exercise","prompt":"What drives the movement of water in the cycle?"}]',14,1),
+  ('lesson-geo-2','course-physical-geography','Climate Zones','Why the world has deserts, rainforests and everything between.',
+   '["Describe major climate zones","Explain how latitude affects climate"]',
+   '[{"type":"paragraph","text":"Sunlight strikes the equator directly, producing warm, wet tropical climates. Towards the poles, sunlight is weaker and spread out, producing colder climates."},{"type":"list","ordered":false,"items":["Tropical — hot and often wet, near the equator","Arid — dry, where sinking air suppresses rainfall","Temperate — moderate seasons","Polar — cold year-round"]}]',16,2),
+  ('lesson-geo-3','course-physical-geography','Rivers and Landscapes','How flowing water carves the land.',
+   '["Describe how rivers shape valleys","Identify features like deltas and waterfalls"]',
+   '[{"type":"paragraph","text":"Rivers erode rock and soil, transport sediment downstream, and deposit it where flow slows — carving canyons, building floodplains and creating deltas over millennia."},{"type":"example","title":"A delta","text":"Where the Nile meets the Mediterranean, dropped silt has built a vast fan of fertile land."}]',15,3),
+  ('lesson-econ-1','course-economics-everyday','Scarcity and Choice','The core problem every economy solves.',
+   '["Define scarcity","Explain opportunity cost"]',
+   '[{"type":"paragraph","text":"Resources are limited but wants are unlimited — that gap is scarcity. Because of scarcity, every choice has an opportunity cost: the value of the next best thing given up."},{"type":"example","title":"Your time","text":"Studying for a test earns a better grade, but you give up watching a movie. The movie is the opportunity cost."}]',14,1),
+  ('lesson-econ-2','course-economics-everyday','Supply, Demand and Price','The invisible hand at the market.',
+   '["Define demand and supply","Explain how prices change"]',
+   '[{"type":"paragraph","text":"Demand is how much people want to buy at a given price; supply is how much sellers want to offer. When demand rises against fixed supply, prices rise."},{"type":"example","title":"A mango harvest","text":"A good harvest increases supply, so prices fall. A drought shrinks supply, so prices climb."}]',17,2),
+  ('lesson-econ-3','course-economics-everyday','Money, Inflation and You','Why prices rise and what it means for your pocket.',
+   '["Define inflation","Explain a common cause of inflation"]',
+   '[{"type":"paragraph","text":"Inflation is a general rise in prices over time, so each unit of money buys less. Mild inflation is normal; very high inflation erodes savings and hurts people on fixed incomes."},{"type":"exercise","prompt":"Why does high inflation hurt people whose incomes do not change?"}]',15,3),
+  ('lesson-biz-1','course-business-fundamentals','What Is a Business?','Value, customers and the engine of enterprise.',
+   '["Define a business","Explain how value is created"]',
+   '[{"type":"paragraph","text":"A business creates value for customers and earns money in return. If customers value the offer more than the price they pay, the business can thrive."},{"type":"example","title":"The market stall","text":"A trader buys tomatoes in the morning and sells them by lunchtime — creating value by having them where shoppers are, when they want them."}]',13,1),
+  ('lesson-biz-2','course-business-fundamentals','Revenue, Costs and Profit','The money story behind every business.',
+   '["Define revenue, costs and profit","Calculate simple profit"]',
+   '[{"type":"paragraph","text":"Revenue is money from sales; costs are what it takes to operate; profit is revenue minus costs. Profit is what lets a business grow and survive."},{"type":"example","title":"Selling lemonade","text":"50 cups at $2 = $100 revenue. Ingredients cost $30, so profit = $70."}]',15,2),
+  ('lesson-biz-3','course-business-fundamentals','Customers and Marketing','Finding people who need what you offer.',
+   '["Explain what marketing is","Identify the four Ps"]',
+   '[{"type":"paragraph","text":"Marketing connects a business with customers. The classic framework is the four Ps: Product, Price, Place and Promotion."},{"type":"example","title":"Feature vs benefit","text":"Feature: this bag has a padded laptop sleeve. Benefit: your laptop stays safe on the bus. Customers buy benefits."}]',14,3);
+
+-- ── Quizzes & questions ─────────────────────────────────────────────────────
+
+insert into quizzes (id, course_id, lesson_id, title, description, passing_score, time_limit_minutes, published) values
+  ('quiz-algebra','course-algebra',null,'Algebra Foundations — Checkpoint','Ten questions covering the whole course.',60,15,true),
+  ('quiz-cells','course-cells',null,'Cells & Life Processes — Checkpoint','Eight questions on cells and organisation.',60,12,true),
+  ('quiz-writing','course-academic-writing',null,'Academic Writing — Checkpoint','Check your understanding of paragraphs and arguments.',60,12,true),
+  ('quiz-python','course-python',null,'Python Basics — Checkpoint','A quick check of variables, conditions, loops and functions.',60,15,true),
+  ('quiz-history','course-modern-world',null,'The Modern World — Checkpoint','Ten questions on the twentieth century.',60,15,true),
+  ('quiz-geo','course-physical-geography',null,'Physical Geography — Checkpoint','Seven questions on water, climate and landscapes.',60,12,true),
+  ('quiz-econ','course-economics-everyday',null,'Economics — Checkpoint','Seven questions on scarcity, markets and money.',60,12,true),
+  ('quiz-biz','course-business-fundamentals',null,'Business Fundamentals — Checkpoint','Seven questions on value, money and customers.',60,12,true);
+
+insert into questions (id, quiz_id, type, prompt, options, correct_index, correct_answer, explanation, position) values
+  ('q-a1','quiz-algebra','multiple_choice','Which of these is an expression?','["x + 5 = 9","3x + 2","7 = y","x − 1 = 0"]',1,null,'An expression has no equals sign. x + 5 = 9 is an equation; 3x + 2 is an expression.',1),
+  ('q-a2','quiz-algebra','multiple_choice','Simplify 4x + 2 − x + 9.','["3x + 11","5x + 11","3x + 7","5x + 7"]',0,null,'4x − x = 3x and 2 + 9 = 11, so the result is 3x + 11.',2),
+  ('q-a3','quiz-algebra','multiple_choice','Solve x + 7 = 15.','["x = 22","x = 8","x = 7","x = 105"]',1,null,'Subtract 7 from both sides: x = 8.',3),
+  ('q-a4','quiz-algebra','multiple_choice','Solve 4x = 36.','["x = 9","x = 32","x = 144","x = 6"]',0,null,'Divide both sides by 4: x = 9.',4),
+  ('q-a5','quiz-algebra','true_false','3x + 4y can be simplified to 7xy.','["True","False"]',1,null,'Different variables cannot be combined. 3x + 4y is already in simplest form.',5),
+  ('q-a6','quiz-algebra','multiple_choice','If y = 2x and x = 3, what is y?','["5","6","9","2"]',1,null,'y = 2 × 3 = 6.',6),
+  ('q-a7','quiz-algebra','short_answer','Write an expression for: the total cost of n notebooks if each costs $4.','[]',-1,'4n','Four dollars per notebook times n notebooks is 4n.',7),
+  ('q-c1','quiz-cells','multiple_choice','Which part of the cell contains DNA?','["Cell membrane","Nucleus","Cytoplasm","Mitochondria"]',1,null,'The nucleus is the control centre and contains the genetic material.',1),
+  ('q-c2','quiz-cells','multiple_choice','Which structure is found in plant cells but not animal cells?','["Nucleus","Cell wall","Cell membrane","Mitochondria"]',1,null,'Plant cells have a rigid cell wall made mostly of cellulose.',2),
+  ('q-c3','quiz-cells','multiple_choice','What process do chloroplasts carry out?','["Respiration","Photosynthesis","Digestion","Excretion"]',1,null,'Chloroplasts capture sunlight to make glucose and oxygen — photosynthesis.',3),
+  ('q-c4','quiz-cells','multiple_choice','Why do cells stay small?','["To save energy","Their surface area grows slower than volume","They cannot divide otherwise","To avoid mutations"]',1,null,'As a cell grows, volume increases faster than surface area, making it hard to exchange materials.',4),
+  ('q-c5','quiz-cells','true_false','A tissue is a group of similar cells working together.','["True","False"]',0,null,'Tissues are groups of similar cells with a shared function.',5),
+  ('q-c6','quiz-cells','multiple_choice','Which is the correct order from smallest to largest?','["cell → tissue → organ → organism","tissue → cell → organ → organism","cell → organ → tissue → organism","organ → cell → tissue → organism"]',0,null,'Cells form tissues, tissues form organs, organs form organisms.',6),
+  ('q-c7','quiz-cells','multiple_choice','Which cell type is specialised to carry oxygen?','["Nerve cell","Red blood cell","Root hair cell","Muscle cell"]',1,null,'Red blood cells are disc-shaped to carry oxygen efficiently.',7),
+  ('q-c8','quiz-cells','short_answer','What is the process called when cells become specialised?','[]',-1,'differentiation','Differentiation is the process by which cells become specialised for particular roles.',8),
+  ('q-w1','quiz-writing','multiple_choice','What is the role of a topic sentence?','["To add examples","To state the main idea of the paragraph","To conclude the essay","To list references"]',1,null,'The topic sentence states the paragraph''s main idea.',1),
+  ('q-w2','quiz-writing','multiple_choice','Which is a strong topic sentence?','["Education is important.","Education reduces poverty by building skills that help communities grow.","Schools exist in many countries.","Learning is a thing people do."]',1,null,'A strong topic sentence is specific and arguable.',2),
+  ('q-w3','quiz-writing','multiple_choice','In an argument, reasoning is…','["The claim itself","The explanation of how evidence supports the claim","A list of facts","The introduction"]',1,null,'Reasoning connects evidence to the claim.',3),
+  ('q-w4','quiz-writing','true_false','A first draft should be polished before checking structure.','["True","False"]',1,null,'Edit structure and meaning first; polish grammar later.',4),
+  ('q-w5','quiz-writing','multiple_choice','What is the best rewrite of ''In my opinion, I think the results are very significant indeed''?','["Keep it as is","The results are significant.","I think the results are significant.","In my opinion the results are significant."]',1,null,'Shorter is stronger; the filler adds nothing.',5),
+  ('q-w6','quiz-writing','short_answer','What are the three parts of an argument?','[]',-1,'claim, evidence, reasoning','Claim, evidence and reasoning.',6),
+  ('q-p1','quiz-python','multiple_choice','What does print(''Hi'') do?','["Asks the user a question","Displays Hi on the screen","Saves a file","Ends the program"]',1,null,'print() displays text to the screen.',1),
+  ('q-p2','quiz-python','multiple_choice','Which line correctly defines a variable?','["name = ''Amina''","let name = ''Amina''","name equals ''Amina''","var name: ''Amina''"]',0,null,'Python uses simple assignment with =.',2),
+  ('q-p3','quiz-python','multiple_choice','What does range(1, 4) produce?','["1, 2, 3, 4","1, 2, 3","0, 1, 2, 3","2, 3, 4"]',1,null,'range stops before the end value, so it yields 1, 2, 3.',3),
+  ('q-p4','quiz-python','multiple_choice','Which condition prints ''Adult'' for age = 20?','["if age < 18:","if age >= 18:","if age == 18:","if age > 18:"]',1,null,'Age 20 is greater than or equal to 18.',4),
+  ('q-p5','quiz-python','true_false','Indentation in Python is optional decoration.','["True","False"]',1,null,'Indentation defines code blocks in Python — it is required.',5),
+  ('q-p6','quiz-python','multiple_choice','What does this print? def double(x): return x * 2 → print(double(5))','["25","10","5","2"]',1,null,'double(5) returns 5 × 2 = 10.',6),
+  ('q-p7','quiz-python','short_answer','Write the keyword used to define a function.','[]',-1,'def','Functions are defined with the def keyword.',7),
+  ('q-h1','quiz-history','multiple_choice','In 1900, most of Africa was controlled by:','["Independent African nations","European empires","The United Nations","Chinese dynasties"]',1,null,'European empires controlled the vast majority of Africa in 1900.',1),
+  ('q-h2','quiz-history','multiple_choice','Which event is often called the spark of World War I?','["The sinking of the Titanic","The assassination of Archduke Franz Ferdinand","The Russian Revolution","The Treaty of Versailles"]',1,null,'The assassination in Sarajevo in 1914 triggered the alliance system into war.',2),
+  ('q-h3','quiz-history','multiple_choice','World War I was fought mainly:','["In trenches","Entirely at sea","In the air","With nuclear weapons"]',0,null,'Trench warfare dominated the Western Front.',3),
+  ('q-h4','quiz-history','multiple_choice','Which country became the first sub-Saharan African colony to gain independence in 1957?','["Kenya","Ghana","Nigeria","South Africa"]',1,null,'Ghana became independent in 1957 under Kwame Nkrumah.',4),
+  ('q-h5','quiz-history','true_false','Decolonisation was complete by the end of World War II.','["True","False"]',1,null,'Decolonisation accelerated after 1945, spanning decades into the 1970s and beyond.',5),
+  ('q-h6','quiz-history','multiple_choice','Which is a cause shared by both world wars?','["Economic hardship and political instability","The spread of the internet","Colonialism in space","Religious wars in Europe"]',0,null,'Economic turmoil and political instability fed both conflicts.',6),
+  ('q-h7','quiz-history','short_answer','Name one country that gained independence after World War II.','[]',-1,'india','India (1947) is the most famous example; Ghana, Kenya, Vietnam and many others also qualify.',7),
+  ('q-g1','quiz-geo','multiple_choice','What drives the water cycle?','["The Moon''s gravity","The Sun''s energy","Volcanoes","Ocean currents alone"]',1,null,'Solar energy powers evaporation and drives the cycle.',1),
+  ('q-g2','quiz-geo','multiple_choice','Water vapour cools and forms clouds. This is called:','["Evaporation","Condensation","Precipitation","Transpiration"]',1,null,'Condensation is the change from gas to liquid.',2),
+  ('q-g3','quiz-geo','multiple_choice','Which climate zone is typically found near the equator?','["Polar","Temperate","Tropical","Arid"]',2,null,'The equator receives direct sunlight, producing tropical climates.',3),
+  ('q-g4','quiz-geo','multiple_choice','Why are the Sahara and Kalahari deserts dry?','["They are near the poles","Sinking air suppresses rainfall","They are far from the equator","They are very high above sea level"]',1,null,'High-pressure zones with sinking air create dry conditions around 30° latitude.',4),
+  ('q-g5','quiz-geo','true_false','Rivers only erode land; they never deposit material.','["True","False"]',1,null,'Rivers both erode and deposit sediment, building features like floodplains and deltas.',5),
+  ('q-g6','quiz-geo','multiple_choice','A delta forms where:','["A river meets a steep cliff","A river slows and drops sediment at its mouth","Rain falls heavily","Glaciers melt"]',1,null,'Deltas form where rivers deposit sediment as they enter slower water.',6),
+  ('q-g7','quiz-geo','short_answer','Name the process by which rivers wear away rock and soil.','[]',-1,'erosion','Erosion is the wearing away and transport of material by water, wind or ice.',7),
+  ('q-e1','quiz-econ','multiple_choice','Scarcity means:','["There is never enough money","Resources are limited while wants are unlimited","People are greedy","Prices always rise"]',1,null,'Scarcity is the gap between limited resources and unlimited wants.',1),
+  ('q-e2','quiz-econ','multiple_choice','The opportunity cost of choosing A is:','["The price of A","The value of the next best alternative given up","The total cost of all alternatives","Nothing, if A is free"]',1,null,'Opportunity cost is the value of the next best alternative you forgo.',2),
+  ('q-e3','quiz-econ','multiple_choice','A good harvest increases the supply of mangoes. Prices will likely:','["Rise","Fall","Stay exactly the same","Become illegal"]',1,null,'More supply, with demand unchanged, pushes prices down.',3),
+  ('q-e4','quiz-econ','multiple_choice','Inflation is:','["A rise in the general level of prices","A fall in taxes","An increase in savings","A decrease in wages"]',0,null,'Inflation is a sustained rise in the overall price level.',4),
+  ('q-e5','quiz-econ','true_false','High inflation tends to hurt people on fixed incomes.','["True","False"]',0,null,'As prices rise, fixed incomes buy less.',5),
+  ('q-e6','quiz-econ','multiple_choice','If demand for a new phone is high but supply is limited, price will likely:','["Rise","Fall","Stay flat","Be set by law"]',0,null,'High demand with low supply pushes prices upward.',6),
+  ('q-e7','quiz-econ','short_answer','What is the next best thing you give up when you make a choice?','[]',-1,'opportunity cost','The value of the forgone alternative is the opportunity cost.',7),
+  ('q-b1','quiz-biz','multiple_choice','Which best describes what a business does?','["Creates value for customers in exchange for money","Collects taxes","Provides only free services","Buys shares"]',0,null,'Businesses create value and earn revenue in return.',1),
+  ('q-b2','quiz-biz','multiple_choice','Profit equals:','["Revenue plus costs","Revenue minus costs","Costs minus revenue","Revenue divided by costs"]',1,null,'Profit = revenue − costs.',2),
+  ('q-b3','quiz-biz','multiple_choice','Revenue of $5,000 and costs of $3,200 give a profit of:','["$8,200","$1,800","$3,200","$5,000"]',1,null,'5,000 − 3,200 = 1,800.',3),
+  ('q-b4','quiz-biz','multiple_choice','Which is NOT one of the four Ps of marketing?','["Product","Price","People","Place"]',2,null,'The four Ps are product, price, place and promotion.',4),
+  ('q-b5','quiz-biz','multiple_choice','''This bag has a padded laptop sleeve'' is a:','["Benefit","Feature","Price","Promotion"]',1,null,'It describes what the product has — a feature. The benefit is the safety it provides.',5),
+  ('q-b6','quiz-biz','true_false','A business can be profitable yet run out of cash.','["True","False"]',0,null,'Profit and cash flow are different; timing matters.',6),
+  ('q-b7','quiz-biz','short_answer','What is the money a business receives from sales called?','[]',-1,'revenue','Revenue is the income from sales.',7);
+
+commit;
