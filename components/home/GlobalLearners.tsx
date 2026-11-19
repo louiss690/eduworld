@@ -9,22 +9,18 @@ const LEARNERS = [
   {
     src: "/images/photos/global-learners-1.jpg",
     alt: "A Black student learning with a laptop at home",
-    place: "Ghana · Accra",
   },
   {
     src: "/images/photos/global-learners-2.jpg",
     alt: "A Black student collaborating on study work with a laptop",
-    place: "Nigeria · Lagos",
   },
   {
     src: "/images/photos/global-learners-3.jpg",
     alt: "A diverse group of students working together with technology",
-    place: "Global learners · Together",
   },
   {
     src: "/images/photos/study-group.jpg",
     alt: "Two students from different backgrounds studying side by side",
-    place: "Kenya · Nairobi",
   },
 ];
 
@@ -35,11 +31,11 @@ export function GlobalLearners() {
         <Reveal className="mx-auto max-w-2xl text-center">
           <p className="eyebrow">A world of learners</p>
           <h2 id="learners-heading" className="section-title mt-3">
-            From Accra to Austin, learning together
+            Students everywhere, learning together
           </h2>
           <p className="mt-4 text-base leading-relaxed text-muted">
             EduWorld is built for students everywhere. Our imagery reflects the
-            real, diverse community we serve — and the places learning happens.
+            real, diverse community we serve.
           </p>
         </Reveal>
 
@@ -56,9 +52,6 @@ export function GlobalLearners() {
                     className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
                   />
                 </div>
-                <figcaption className="px-3 py-3 text-center">
-                  <span className="text-[13px] font-medium text-navy-800">{learner.place}</span>
-                </figcaption>
               </figure>
             </Reveal>
           ))}
