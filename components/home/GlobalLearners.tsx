@@ -7,8 +7,8 @@ import { Reveal } from "@/components/ui/Reveal";
  */
 const LEARNERS = [
   {
-    src: "/images/photos/global-learners-1-v2.jpg",
-    alt: "A student learning on a phone",
+    src: "/images/photos/global-learners-1-v3.jpg",
+    alt: "A learner studying",
   },
   {
     src: "/images/photos/global-learners-2.jpg",
@@ -43,7 +43,7 @@ export function GlobalLearners() {
           {LEARNERS.map((learner, i) => (
             <Reveal key={learner.src} as="li" delay={i * 90}>
               <figure className="group overflow-hidden rounded-2xl bg-surface2">
-                <div className="relative aspect-[3/4] overflow-hidden">
+                <div className="relative aspect-[9/16] overflow-hidden">
                   <Image
                     src={learner.src}
                     alt={learner.alt}
