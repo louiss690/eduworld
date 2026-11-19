@@ -8,7 +8,7 @@ import { Reveal } from "@/components/ui/Reveal";
 const LEARNERS = [
   {
     src: "/images/photos/global-learners-1.jpg",
-    alt: "Students reading together in a library",
+    alt: "A student learning on a phone",
   },
   {
     src: "/images/photos/global-learners-2.jpg",
