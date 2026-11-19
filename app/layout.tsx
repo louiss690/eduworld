@@ -1,10 +1,16 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Geist_Mono } from "next/font/google";
+import { Inter, Lora, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/services/auth/auth-context";
 
 const inter = Inter({
   variable: "--font-inter",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const lora = Lora({
+  variable: "--font-lora",
   subsets: ["latin"],
   display: "swap",
 });
@@ -48,10 +54,17 @@ export const viewport: Viewport = {
   themeColor: "#0e1830",
 };
 
+const themeInitScript = `(function(){try{var t=localStorage.getItem('ew-theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();`;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${geistMono.variable}`}>
-      <body className="min-h-screen bg-white font-sans text-ink antialiased">
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${inter.variable} ${lora.variable} ${geistMono.variable}`}
+    >
+      <body className="min-h-screen font-sans antialiased">
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>

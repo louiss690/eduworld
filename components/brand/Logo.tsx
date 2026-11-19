@@ -18,7 +18,7 @@ export function Logo({
       {mark && (
         <span
           className={cn(
-            "grid size-9 place-items-center rounded-lg bg-navy-950 text-white",
+            "grid size-9 place-items-center rounded-lg bg-deep text-white",
             markClassName
           )}
           aria-hidden="true"

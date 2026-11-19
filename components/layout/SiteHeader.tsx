@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LayoutDashboard, LogOut, Menu, Settings, UserRound, X } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { useAuth } from "@/services/auth/auth-context";
 import { cn } from "@/lib/utils";
 
@@ -28,7 +29,7 @@ export function SiteHeader() {
   }
 
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-line bg-topbar backdrop-blur">
       <div className="wrap flex h-16 items-center justify-between gap-6">
         <Link href="/" aria-label="EduWorld home" onClick={closeMenus}>
           <Logo />
@@ -54,18 +55,19 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden items-center gap-2 lg:flex">
+          <ThemeToggle />
           {loading ? (
-            <div className="h-9 w-40 animate-pulse rounded-lg bg-paper" />
+            <div className="h-9 w-40 animate-pulse rounded-lg bg-surface3" />
           ) : user ? (
             <div className="relative">
               <button
                 type="button"
                 onClick={() => setMenuOpen((v) => !v)}
-                className="flex items-center gap-2.5 rounded-lg border border-line py-1.5 pl-1.5 pr-3 text-sm font-medium text-navy-800 hover:bg-paper"
+                className="flex items-center gap-2.5 rounded-lg border border-line bg-surface1 py-1.5 pl-1.5 pr-3 text-sm font-medium text-navy-800 transition-colors hover:bg-surface3"
                 aria-expanded={menuOpen}
                 aria-haspopup="menu"
               >
-                <span className="grid size-7 place-items-center rounded-md bg-navy-950 text-xs font-bold text-white">
+                <span className="grid size-7 place-items-center rounded-md bg-deep text-xs font-bold text-white">
                   {user.name.slice(0, 1).toUpperCase()}
                 </span>
                 {user.name.split(" ")[0]}
@@ -73,13 +75,13 @@ export function SiteHeader() {
               {menuOpen && (
                 <div
                   role="menu"
-                  className="absolute right-0 top-full mt-2 w-56 rounded-xl border border-line bg-white p-1.5 shadow-lg"
+                  className="menu-pop absolute right-0 top-full mt-2 w-56 rounded-xl border border-line bg-surface1 p-1.5 shadow-lg"
                 >
                   <Link
                     href={user.role === "teacher" ? "/teacher" : user.role === "admin" ? "/admin" : "/dashboard"}
                     role="menuitem"
                     onClick={closeMenus}
-                    className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-navy-800 hover:bg-paper"
+                    className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-navy-800 hover:bg-surface3"
                   >
                     <LayoutDashboard className="size-4 text-muted" /> Dashboard
                   </Link>
@@ -87,7 +89,7 @@ export function SiteHeader() {
                     href="/settings"
                     role="menuitem"
                     onClick={closeMenus}
-                    className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-navy-800 hover:bg-paper"
+                    className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-navy-800 hover:bg-surface3"
                   >
                     <Settings className="size-4 text-muted" /> Account settings
                   </Link>
@@ -110,26 +112,29 @@ export function SiteHeader() {
           )}
         </div>
 
-        <button
-          type="button"
-          className="grid size-10 place-items-center rounded-lg border border-line text-navy-800 lg:hidden"
-          onClick={() => setOpen((v) => !v)}
-          aria-expanded={open}
-          aria-label={open ? "Close menu" : "Open menu"}
-        >
-          {open ? <X className="size-5" /> : <Menu className="size-5" />}
-        </button>
+        <div className="flex items-center gap-2 lg:hidden">
+          <ThemeToggle />
+          <button
+            type="button"
+            className="grid size-10 place-items-center rounded-lg border border-line text-navy-800"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-label={open ? "Close menu" : "Open menu"}
+          >
+            {open ? <X className="size-5" /> : <Menu className="size-5" />}
+          </button>
+        </div>
       </div>
 
       {open && (
-        <div className="border-t border-line bg-white lg:hidden">
+        <div className="border-t border-line bg-surface1 lg:hidden">
           <nav className="wrap flex flex-col gap-1 py-4" aria-label="Mobile">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={closeMenus}
-                className="rounded-lg px-3 py-2.5 text-sm font-medium text-navy-800 hover:bg-paper"
+                className="rounded-lg px-3 py-2.5 text-sm font-medium text-navy-800 hover:bg-surface3"
               >
                 {link.label}
               </Link>

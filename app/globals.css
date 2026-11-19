@@ -1,53 +1,125 @@
 @import "tailwindcss";
 
-/* ────────────────────────────────────────────────────────────────────────────
-   EduWorld design tokens
-   Professional international education brand: deep navy + blue on white /
-   soft off-white. Restrained accents — no gradient noise, no candy cards.
-   ──────────────────────────────────────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════════════════
+   EduWorld design system
+   Premium international education brand. Semantic tokens flip between light
+   and dark themes via `data-theme` on <html>. Permanent deep-navy surfaces
+   (footer, highlight bands, avatar chips) use fixed tokens that never flip.
+   ═══════════════════════════════════════════════════════════════════════════ */
 
 @theme {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
     "Segoe UI", sans-serif;
+  --font-serif: var(--font-lora), Georgia, "Times New Roman", serif;
   --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", monospace;
+}
 
-  /* Deep navy — primary brand */
-  --color-navy-50: #f5f7fb;
-  --color-navy-100: #e9edf6;
-  --color-navy-200: #d3dcec;
-  --color-navy-300: #a9badb;
-  --color-navy-400: #7d94c4;
-  --color-navy-500: #5874ac;
-  --color-navy-600: #405c91;
-  --color-navy-700: #324876;
-  --color-navy-800: #27395e;
-  --color-navy-900: #1b2945;
-  --color-navy-950: #0e1830;
+/* ── Semantic tokens: light (default) ──────────────────────────────────────── */
 
-  /* Professional blue — actions, links, active states */
-  --color-brand-50: #eff4ff;
-  --color-brand-100: #dbe7fe;
-  --color-brand-200: #bcd0fd;
-  --color-brand-300: #8daef9;
-  --color-brand-400: #5a86f4;
-  --color-brand-500: #3563ec;
-  --color-brand-600: #204bd8;
-  --color-brand-700: #1b3db4;
-  --color-brand-800: #1a3490;
-  --color-brand-900: #182d72;
-  --color-brand-950: #101c48;
+:root {
+  --surf-1: #ffffff; /* main background / cards */
+  --surf-2: #f5f7fb; /* secondary background */
+  --surf-3: #eef1f7; /* hover / chips */
+  --txt-1: #111b34; /* main text */
+  --txt-2: #64748b; /* secondary text */
+  --line-1: #e5eaf2; /* borders */
+  --brand-1: #2451e8; /* primary blue */
+  --brand-1-hover: #1c40c2;
+  --brand-soft: #eff4ff;
+  --brand-soft-2: #dbe7fe;
+  --brand-soft-border: #bcd0fd;
+  --gold-soft: #f4ead4;
+  --gold-txt: #ad7f2c;
+  --topbar-bg: rgba(255, 255, 255, 0.92);
+  --card-shadow: 0 1px 2px rgba(14, 24, 48, 0.06);
+  --card-shadow-hover: 0 10px 28px -12px rgba(14, 24, 48, 0.18);
 
-  /* Neutrals */
-  --color-paper: #f7f8fb;
-  --color-ink: #1b2332;
-  --color-line: #e4e8f0;
-  --color-muted: #5a6577;
+  /* Navy scale (text + tints) */
+  --navy-50-c: #f5f7fb;
+  --navy-100-c: #e9edf6;
+  --navy-200-c: #d3dcec;
+  --navy-300-c: #a9badb;
+  --navy-400-c: #7d94c4;
+  --navy-500-c: #5874ac;
+  --navy-600-c: #405c91;
+  --navy-700-c: #324876;
+  --navy-800-c: #27395e;
+  --navy-900-c: #1b2945;
+  --navy-950-c: #111b34;
 
-  /* Accent gold — achievements, highlights (used sparingly) */
-  --color-gold-100: #f4ead4;
-  --color-gold-500: #c9973f;
-  --color-gold-600: #ad7f2c;
-  --color-gold-700: #8c6523;
+  /* Permanent deep-navy surfaces (identical in both themes) */
+  --deep-bg: #0b1428;
+  --deep-bg-2: #101d38;
+  --deep-text: #e7edf8;
+  --deep-text-2: #9fb0cc;
+  --deep-eyebrow: #7fa2ff;
+
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --surf-1: #1c293d; /* cards */
+  --surf-2: #101827; /* main background */
+  --surf-3: #232f45; /* hover / chips */
+  --txt-1: #f5f7ff;
+  --txt-2: #aab6ca;
+  --line-1: #344158;
+  --brand-1: #4772ff;
+  --brand-1-hover: #6288ff;
+  --brand-soft: #1d2b4d;
+  --brand-soft-2: #24365f;
+  --brand-soft-border: #3a5085;
+  --gold-soft: #3a2f1a;
+  --gold-txt: #d4ab5c;
+  --topbar-bg: rgba(16, 24, 39, 0.85);
+  --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --card-shadow-hover: 0 12px 30px -12px rgba(0, 0, 0, 0.6);
+
+  --navy-50-c: #222e44;
+  --navy-100-c: #2a354b;
+  --navy-200-c: #3c485f;
+  --navy-300-c: #55627a;
+  --navy-400-c: #64748b;
+  --navy-500-c: #7c8dae;
+  --navy-600-c: #97a6c2;
+  --navy-700-c: #b9c5db;
+  --navy-800-c: #dce3f0;
+  --navy-900-c: #edf1fa;
+  --navy-950-c: #f5f7ff;
+
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-paper: var(--surf-2);
+  --color-ink: var(--txt-1);
+  --color-muted: var(--txt-2);
+  --color-line: var(--line-1);
+  --color-navy-50: var(--navy-50-c);
+  --color-navy-100: var(--navy-100-c);
+  --color-navy-200: var(--navy-200-c);
+  --color-navy-300: var(--navy-300-c);
+  --color-navy-400: var(--navy-400-c);
+  --color-navy-500: var(--navy-500-c);
+  --color-navy-600: var(--navy-600-c);
+  --color-navy-700: var(--navy-700-c);
+  --color-navy-800: var(--navy-800-c);
+  --color-navy-900: var(--navy-900-c);
+  --color-navy-950: var(--navy-950-c);
+  --color-brand-50: var(--brand-soft);
+  --color-brand-100: var(--brand-soft-2);
+  --color-brand-200: var(--brand-soft-border);
+  --color-brand-300: var(--brand-soft-border);
+  --color-brand-400: var(--brand-1);
+  --color-brand-500: var(--brand-1);
+  --color-brand-600: var(--brand-1);
+  --color-brand-700: var(--brand-1-hover);
+  --color-brand-800: var(--brand-1-hover);
+  --color-brand-900: var(--brand-1-hover);
+  --color-gold-100: var(--gold-soft);
+  --color-gold-500: var(--gold-txt);
+  --color-gold-600: var(--gold-txt);
+  --color-gold-700: var(--gold-txt);
 }
 
 /* ── Base ─────────────────────────────────────────────────────────────────── */
@@ -56,37 +128,50 @@ html {
   scroll-behavior: smooth;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
+body {
+  background-color: var(--surf-2);
+  color: var(--txt-1);
 }
 
-body {
-  background-color: #ffffff;
-  color: var(--color-ink);
+/* Academic editorial headings: Lora. UI text stays Inter. */
+h1,
+h2,
+h3 {
+  font-family: var(--font-serif);
+  letter-spacing: -0.01em;
 }
 
 ::selection {
-  background-color: var(--color-brand-200);
-  color: var(--color-navy-950);
+  background-color: var(--brand-soft-border);
+  color: var(--txt-1);
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-brand-500);
+  outline: 2px solid var(--brand-1);
   outline-offset: 2px;
 }
 
-/* ── Reusable component classes ────────────────────────────────────────────── */
+/* Smooth colour cross-fade while switching themes (class applied briefly by
+   the ThemeToggle; other motion is untouched). */
+html.theme-anim,
+html.theme-anim *,
+html.theme-anim *::before,
+html.theme-anim *::after {
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    box-shadow 0.25s ease !important;
+}
+
+/* ── Reusable components ──────────────────────────────────────────────────── */
 
 @layer components {
   .wrap {
     @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
   }
 
-  /* Button base — shared by every button variant (Tailwind v4 can't apply
-     custom classes, so the base is grouped with all variants). Includes
-     subtle lift-on-hover and press feedback. */
+  /* Buttons — base + variants (motion lives in the motion section below) */
   .btn,
   .btn-primary,
   .btn-secondary,
@@ -94,31 +179,34 @@ body {
     @apply inline-flex items-center justify-center gap-2 rounded-lg text-sm font-semibold
       cursor-pointer select-none whitespace-nowrap
       disabled:opacity-50 disabled:pointer-events-none;
-    transition:
-      color 0.15s ease,
-      background-color 0.15s ease,
-      border-color 0.15s ease,
-      box-shadow 0.18s var(--ease-out-soft),
-      transform 0.18s var(--ease-out-soft);
-  }
-  .btn:hover {
-    transform: translateY(-2px);
-  }
-  .btn:active {
-    transform: translateY(0) scale(0.98);
   }
 
   .btn-primary {
-    @apply bg-brand-600 text-white hover:bg-brand-700 px-5 py-2.5 shadow-sm;
+    background-color: var(--brand-1);
+    color: #fff;
+    @apply px-5 py-2.5;
+  }
+  .btn-primary:hover {
+    background-color: var(--brand-1-hover);
   }
 
   .btn-secondary {
-    @apply border border-line bg-white text-navy-800 hover:border-navy-300
-      hover:bg-paper px-5 py-2.5;
+    background-color: var(--surf-1);
+    border: 1px solid var(--line-1);
+    color: var(--txt-1);
+    @apply px-5 py-2.5;
+  }
+  .btn-secondary:hover {
+    border-color: var(--navy-300-c);
+    background-color: var(--surf-3);
   }
 
   .btn-ghost {
-    @apply text-brand-700 hover:bg-brand-50 px-4 py-2.5;
+    color: var(--brand-1-hover);
+    @apply px-4 py-2.5;
+  }
+  .btn-ghost:hover {
+    background-color: var(--brand-soft);
   }
 
   .btn-lg {
@@ -130,13 +218,28 @@ body {
   }
 
   .input-field {
-    @apply w-full rounded-lg border border-line bg-white px-3.5 py-2.5 text-sm text-ink
-      placeholder:text-muted/70 transition-colors
-      focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-100;
+    width: 100%;
+    border-radius: 0.5rem;
+    border: 1px solid var(--line-1);
+    background-color: var(--surf-1);
+    color: var(--txt-1);
+    @apply px-3.5 py-2.5 text-sm transition-colors;
+  }
+  .input-field::placeholder {
+    color: color-mix(in srgb, var(--txt-2) 70%, transparent);
+  }
+  .input-field:focus {
+    outline: none;
+    border-color: var(--brand-1);
+    box-shadow: 0 0 0 3px var(--brand-soft);
+  }
+  .input-field:disabled {
+    opacity: 0.6;
   }
 
   .label-form {
-    @apply mb-1.5 block text-sm font-medium text-navy-800;
+    @apply mb-1.5 block text-sm font-medium;
+    color: var(--txt-1);
   }
 
   .field-error {
@@ -144,46 +247,93 @@ body {
   }
 
   .card {
-    @apply rounded-xl border border-line bg-white shadow-[0_1px_2px_rgba(14,24,48,0.06)];
+    border-radius: 0.75rem;
+    border: 1px solid var(--line-1);
+    background-color: var(--surf-1);
+    color: var(--txt-1);
+    box-shadow: var(--card-shadow);
   }
 
   .eyebrow {
-    @apply text-[13px] font-semibold uppercase tracking-[0.14em] text-brand-600;
+    @apply text-[13px] font-semibold uppercase tracking-[0.14em];
+    color: var(--brand-1);
   }
 
   .badge {
-    @apply inline-flex items-center gap-1 rounded-full border border-line bg-paper px-2.5 py-0.5
-      text-xs font-medium text-navy-700;
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5
+      text-xs font-medium;
+    border: 1px solid var(--line-1);
+    background-color: var(--surf-3);
+    color: var(--navy-700-c);
   }
 
   .badge-gold {
-    @apply inline-flex items-center gap-1 rounded-full bg-gold-100 px-2.5 py-0.5
-      text-xs font-semibold text-gold-700;
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5
+      text-xs font-semibold;
+    background-color: var(--gold-soft);
+    color: var(--gold-txt);
   }
 
   .section-title {
-    @apply text-3xl font-bold tracking-tight text-navy-950 sm:text-4xl;
+    @apply text-3xl font-bold tracking-tight sm:text-4xl;
+    color: var(--txt-1);
   }
 
   .link-underline {
-    @apply underline decoration-brand-300 decoration-2 underline-offset-4
-      hover:decoration-brand-500;
+    @apply underline decoration-2 underline-offset-4;
+    text-decoration-color: var(--brand-soft-border);
+  }
+  .link-underline:hover {
+    text-decoration-color: var(--brand-1);
   }
 
   .prose-edu {
-    @apply text-[15.5px] leading-relaxed text-ink/90;
+    @apply text-[15.5px] leading-relaxed;
+    color: color-mix(in srgb, var(--txt-1) 90%, transparent);
   }
   .prose-edu p {
     @apply mb-4;
   }
   .prose-edu h3 {
-    @apply mt-8 mb-3 text-lg font-semibold text-navy-900;
+    @apply mt-8 mb-3 text-lg font-semibold;
+    color: var(--txt-1);
   }
   .prose-edu ul {
     @apply mb-4 list-disc pl-6 space-y-1.5;
   }
   .prose-edu ol {
     @apply mb-4 list-decimal pl-6 space-y-1.5;
+  }
+
+  /* Surface helpers */
+  .bg-surface1 {
+    background-color: var(--surf-1);
+  }
+  .bg-surface2 {
+    background-color: var(--surf-2);
+  }
+  .bg-surface3 {
+    background-color: var(--surf-3);
+  }
+  .bg-topbar {
+    background-color: var(--topbar-bg);
+  }
+
+  /* Permanent deep-navy surfaces (footer, highlight bands, chips) */
+  .bg-deep {
+    background-color: var(--deep-bg);
+  }
+  .bg-deep-2 {
+    background-color: var(--deep-bg-2);
+  }
+  .text-deep {
+    color: var(--deep-text);
+  }
+  .text-deep-2 {
+    color: var(--deep-text-2);
+  }
+  .text-deep-eyebrow {
+    color: var(--deep-eyebrow);
   }
 }
 
@@ -260,9 +410,26 @@ body {
   }
   .lift:hover {
     transform: translateY(-3px);
+    box-shadow: var(--card-shadow-hover);
   }
   .lift:active {
     transform: translateY(-1px) scale(0.985);
+  }
+
+  /* Button base hover/press (all .btn variants) */
+  .btn {
+    transition:
+      color 0.15s ease,
+      background-color 0.15s ease,
+      border-color 0.15s ease,
+      box-shadow 0.18s var(--ease-out-soft),
+      transform 0.18s var(--ease-out-soft);
+  }
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+  .btn:active {
+    transform: translateY(0) scale(0.98);
   }
 
   /* Navigation link animated underline */
@@ -285,6 +452,37 @@ body {
   .nav-link:hover::after,
   .nav-link[aria-current="page"]::after {
     transform: scaleX(1);
+  }
+
+  /* Incoming AI tutor messages */
+  .msg-in {
+    animation: msgIn 0.35s var(--ease-out-soft) both;
+  }
+  @keyframes msgIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  /* Dropdown / menu pop */
+  .menu-pop {
+    transform-origin: top right;
+    animation: menuPop 0.18s ease-out both;
+  }
+  @keyframes menuPop {
+    from {
+      opacity: 0;
+      transform: translateY(-4px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
   }
 }
 

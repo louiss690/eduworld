@@ -42,13 +42,13 @@ const SOCIALS = [
 
 export function SiteFooter() {
   return (
-    <footer className="bg-navy-950 text-navy-200">
+    <footer className="bg-deep text-deep-2">
       <div className="wrap grid grid-cols-1 gap-10 py-14 sm:grid-cols-2 lg:grid-cols-5">
         <Reveal className="lg:col-span-2">
           <Link href="/" className="inline-block [&_span]:text-white">
             <Logo />
           </Link>
-          <p className="mt-4 max-w-sm text-sm leading-relaxed text-navy-300">
+          <p className="mt-4 max-w-sm text-sm leading-relaxed text-deep-2">
             Education Without Borders. Knowledge Without Limits. Making quality
             education accessible to every learner, everywhere.
           </p>
@@ -58,7 +58,7 @@ export function SiteFooter() {
                 key={s.label}
                 href={s.href}
                 aria-label={s.label}
-                className="grid size-9 place-items-center rounded-lg border border-white/10 text-navy-300 transition-all duration-200 hover:-translate-y-0.5 hover:border-white/25 hover:text-white"
+                className="grid size-9 place-items-center rounded-lg border border-white/10 text-deep-2 transition-all duration-200 hover:-translate-y-0.5 hover:border-white/25 hover:text-white"
               >
                 <s.icon className="size-4" />
               </a>
@@ -72,7 +72,7 @@ export function SiteFooter() {
             <ul className="mt-4 space-y-2.5">
               {col.links.map((link) => (
                 <li key={link.label}>
-                  <Link href={link.href} className="text-sm text-navy-300 transition-colors duration-200 hover:text-white">
+                  <Link href={link.href} className="text-sm text-deep-2 transition-colors duration-200 hover:text-white">
                     {link.label}
                   </Link>
                 </li>
@@ -83,7 +83,7 @@ export function SiteFooter() {
       </div>
 
       <div className="border-t border-white/10">
-        <div className="wrap flex flex-col items-center justify-between gap-3 py-6 text-[13px] text-navy-400 sm:flex-row">
+        <div className="wrap flex flex-col items-center justify-between gap-3 py-6 text-[13px] text-deep-2 sm:flex-row">
           <p>© {new Date().getFullYear()} EduWorld. All rights reserved.</p>
           <p className="flex items-center gap-1.5">
             <Globe className="size-3.5" />

@@ -7,13 +7,13 @@ export function FinalCTA() {
     <section className="py-20 lg:py-24">
       <div className="wrap">
         <Reveal>
-          <div className="relative overflow-hidden rounded-2xl bg-navy-950 px-6 py-16 text-center sm:px-12 lg:py-20">
+          <div className="relative overflow-hidden rounded-2xl bg-deep px-6 py-16 text-center sm:px-12 lg:py-20">
             <div className="pointer-events-none absolute -top-24 left-1/2 h-64 w-[40rem] -translate-x-1/2 rounded-full bg-brand-600/20 blur-3xl" />
             <div className="relative">
               <h2 className="mx-auto max-w-2xl text-3xl font-bold tracking-tight text-white sm:text-4xl">
                 Your future starts with what you learn today.
               </h2>
-              <p className="mx-auto mt-4 max-w-xl text-base text-navy-300">
+              <p className="mx-auto mt-4 max-w-xl text-base text-deep-2">
                 Join learners around the world. Free to start, always at your own pace.
               </p>
               <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">

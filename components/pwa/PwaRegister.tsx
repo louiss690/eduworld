@@ -30,12 +30,12 @@ export function PwaRegister() {
   if (!offline) return null;
 
   return (
-    <div className="fixed bottom-4 left-1/2 z-50 flex -translate-x-1/2 items-center gap-2.5 rounded-full border border-navy-700 bg-navy-950 px-4 py-2.5 text-sm font-medium text-white shadow-xl">
-      <WifiOff className="size-4 text-navy-300" aria-hidden />
+    <div className="fixed bottom-4 left-1/2 z-50 flex -translate-x-1/2 items-center gap-2.5 rounded-full border border-white/20 bg-deep px-4 py-2.5 text-sm font-medium text-white shadow-xl">
+      <WifiOff className="size-4 text-deep-eyebrow" aria-hidden />
       You're offline — previously visited pages still work.
-      {installed && <span className="text-navy-300">·</span>}
+      {installed && <span className="text-deep-2">·</span>}
       {installed && (
-        <span className="inline-flex items-center gap-1 text-navy-300">
+        <span className="inline-flex items-center gap-1 text-deep-2">
           <Wifi className="size-3.5" /> Resumes on reconnect
         </span>
       )}

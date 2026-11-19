@@ -123,7 +123,7 @@ export function QuizRunner({
             <p className="mt-2 text-base font-medium text-navy-800">
               {result.correctCount} of {result.total} correct
             </p>
-            <p className="mt-3 inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-sm font-semibold">
+            <p className="mt-3 inline-flex items-center gap-2 rounded-full bg-surface1 px-4 py-1.5 text-sm font-semibold">
               {result.passed ? (
                 <><Award className="size-4 text-gold-600" /> Passed · {passingScore}% needed</>
               ) : (
@@ -220,7 +220,7 @@ export function QuizRunner({
             <fieldset key={q.id} className="px-6 py-6 sm:px-8">
               <legend className="sr-only">Question {i + 1}</legend>
               <p className="text-sm font-semibold text-navy-950">
-                <span className="mr-2 inline-grid size-6 place-items-center rounded-full bg-navy-950 text-xs text-white">
+                <span className="mr-2 inline-grid size-6 place-items-center rounded-full bg-deep text-xs text-white">
                   {i + 1}
                 </span>
                 {q.prompt}

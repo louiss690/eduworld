@@ -62,7 +62,7 @@ export default async function LessonPage({ params }: { params: Promise<LessonPag
                   href={`/courses/${course.slug}/lessons/${l.id}`}
                   aria-current={active ? "page" : undefined}
                   className={`flex items-start gap-2.5 rounded-lg px-3 py-2.5 text-sm ${
-                    active ? "bg-white text-navy-950 shadow-sm ring-1 ring-line" : "text-navy-700 hover:bg-white/60"
+                    active ? "bg-surface1 text-navy-950 shadow-sm ring-1 ring-line" : "text-navy-700 hover:bg-surface3"
                   }`}
                 >
                   <span
@@ -127,7 +127,7 @@ export default async function LessonPage({ params }: { params: Promise<LessonPag
       </div>
 
       {/* Prev / next */}
-      <div className="border-t border-line bg-white">
+      <div className="border-t border-line bg-surface1">
         <div className="wrap flex flex-col items-stretch justify-between gap-3 py-6 sm:flex-row">
           {prev ? (
             <Link href={`/courses/${course.slug}/lessons/${prev.id}`} className="btn-secondary justify-start">

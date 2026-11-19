@@ -75,7 +75,7 @@ export function Hero() {
               />
             </div>
           </div>
-          <div className="absolute -bottom-5 left-5 hidden rounded-xl border border-line bg-white px-4 py-3 shadow-lg hero-anim sm:block" style={{ animationDelay: "480ms" }}>
+          <div className="absolute -bottom-5 left-5 hidden rounded-xl border border-line bg-surface1 px-4 py-3 shadow-lg hero-anim sm:block" style={{ animationDelay: "480ms" }}>
             <p className="text-sm font-semibold text-navy-950">Learn anywhere, anytime</p>
             <p className="mt-0.5 text-[13px] text-muted">Offline access included</p>
           </div>

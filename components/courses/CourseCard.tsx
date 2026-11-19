@@ -25,7 +25,7 @@ export function CourseCard({ card }: { card: CourseCardType }) {
           </div>
         )}
         <div className="absolute bottom-3 left-3 flex gap-2">
-          <span className="badge bg-white/95">{course.level}</span>
+          <span className="badge bg-surface1/95">{course.level}</span>
           {course.isDemo && <span className="badge-gold">Demo</span>}
         </div>
       </Link>

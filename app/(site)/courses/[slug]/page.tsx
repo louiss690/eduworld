@@ -64,7 +64,7 @@ export default async function CoursePage({
   return (
     <div>
       {/* Course hero */}
-      <section className="border-b border-line bg-navy-950 text-white">
+      <section className="border-b border-line bg-deep text-white">
         <div className="wrap grid grid-cols-1 gap-10 py-12 lg:grid-cols-[1fr_400px] lg:py-16">
           <div>
             <div className="flex flex-wrap items-center gap-2">
@@ -77,8 +77,8 @@ export default async function CoursePage({
               <span className="badge border-white/20 bg-white/10 text-white">English</span>
             </div>
             <h1 className="mt-5 text-3xl font-bold tracking-tight sm:text-4xl">{course.title}</h1>
-            <p className="mt-4 max-w-2xl text-base leading-relaxed text-navy-200">{course.description}</p>
-            <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-navy-300">
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-deep-2">{course.description}</p>
+            <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-deep-2">
               <span className="inline-flex items-center gap-1.5">
                 <BookOpen className="size-4" /> {lessons.length} lessons
               </span>
@@ -108,9 +108,9 @@ export default async function CoursePage({
                 />
               )}
             </div>
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy-950/90 to-transparent p-5">
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#0b1428]/90 to-transparent p-5">
               <p className="text-sm font-medium text-white">{course.instructor.name}</p>
-              <p className="text-[13px] text-navy-300">{course.instructor.title}</p>
+              <p className="text-[13px] text-deep-2">{course.instructor.title}</p>
             </div>
           </div>
         </div>

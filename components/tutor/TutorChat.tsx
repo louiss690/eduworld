@@ -119,7 +119,7 @@ export function TutorChat({
   }, [messages, busy]);
 
   return (
-    <div className="grid h-[calc(100vh-7rem)] grid-cols-1 overflow-hidden rounded-2xl border border-line bg-white shadow-sm lg:grid-cols-[300px_1fr]">
+    <div className="grid h-[calc(100vh-7rem)] grid-cols-1 overflow-hidden rounded-2xl border border-line bg-surface1 shadow-sm lg:grid-cols-[300px_1fr]">
       {/* Sidebar */}
       <aside className="hidden flex-col border-r border-line bg-paper lg:flex">
         <div className="p-4">
@@ -149,8 +149,8 @@ export function TutorChat({
                     className={cn(
                       "w-full truncate rounded-lg px-3 py-2.5 text-left text-sm transition-colors",
                       activeId === c.id
-                        ? "bg-white font-medium text-navy-950 shadow-sm ring-1 ring-line"
-                        : "text-navy-700 hover:bg-white/70"
+                        ? "bg-surface1 font-medium text-navy-950 shadow-sm ring-1 ring-line"
+                        : "text-navy-700 hover:bg-surface3"
                     )}
                   >
                     {c.title}
@@ -166,7 +166,7 @@ export function TutorChat({
       <div className="flex flex-col">
         <div className="flex items-center justify-between gap-3 border-b border-line px-5 py-3.5">
           <div className="flex items-center gap-3">
-            <span className="grid size-9 place-items-center rounded-full bg-navy-950 text-white">
+            <span className="grid size-9 place-items-center rounded-full bg-deep text-white">
               <Bot className="size-4.5" />
             </span>
             <div>
@@ -221,7 +221,7 @@ export function TutorChat({
                 <div
                   key={m.id}
                   className={cn(
-                    "flex",
+                    "msg-in flex",
                     m.role === "user" ? "justify-end" : "justify-start"
                   )}
                 >
@@ -229,8 +229,8 @@ export function TutorChat({
                     className={cn(
                       "max-w-[85%] whitespace-pre-wrap rounded-2xl px-4 py-3 text-sm leading-relaxed",
                       m.role === "user"
-                        ? "rounded-br-sm bg-navy-950 text-white"
-                        : "rounded-bl-sm bg-paper text-navy-900"
+                        ? "rounded-br-sm bg-brand-600 text-white"
+                        : "rounded-bl-sm bg-surface3 text-navy-900"
                     )}
                   >
                     {m.content}

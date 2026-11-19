@@ -47,10 +47,10 @@ export default async function DashboardPage() {
   return (
     <div className="bg-paper">
       {/* Welcome */}
-      <section className="border-b border-line bg-white">
+      <section className="border-b border-line bg-surface1">
         <div className="wrap flex flex-col gap-6 py-10 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex items-center gap-5">
-            <span className="grid size-16 shrink-0 place-items-center rounded-2xl bg-navy-950 text-xl font-bold text-white">
+            <span className="grid size-16 shrink-0 place-items-center rounded-2xl bg-deep text-xl font-bold text-white">
               {initials(user.name)}
             </span>
             <div>
@@ -81,7 +81,7 @@ export default async function DashboardPage() {
             </div>
 
             {enrollments.length === 0 ? (
-              <div className="mt-4 rounded-xl border border-dashed border-line bg-white px-6 py-12 text-center">
+              <div className="mt-4 rounded-xl border border-dashed border-line bg-surface1 px-6 py-12 text-center">
                 <BookOpenCheck className="mx-auto size-10 text-navy-200" />
                 <h3 className="mt-4 font-semibold text-navy-950">Start your first course</h3>
                 <p className="mx-auto mt-1.5 max-w-sm text-sm text-muted">
@@ -159,17 +159,17 @@ export default async function DashboardPage() {
         <div className="space-y-6">
           {/* AI Tutor quick access */}
           <div className="card overflow-hidden">
-            <div className="bg-navy-950 p-6 text-white">
+            <div className="bg-deep p-6 text-white">
               <div className="flex items-center gap-3">
-                <span className="grid size-10 place-items-center rounded-full bg-white/10 text-brand-200">
+                <span className="grid size-10 place-items-center rounded-full bg-white/10 text-deep-eyebrow">
                   <Bot className="size-5" />
                 </span>
                 <div>
                   <p className="font-semibold">AI Tutor</p>
-                  <p className="text-[13px] text-navy-300">Your personal study companion</p>
+                  <p className="text-[13px] text-deep-2">Your personal study companion</p>
                 </div>
               </div>
-              <p className="mt-4 text-sm leading-relaxed text-navy-200">
+              <p className="mt-4 text-sm leading-relaxed text-deep-2">
                 Stuck on a topic? Ask the tutor to explain it step by step, or
                 generate practice questions for you.
               </p>

@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { Logo } from "@/components/brand/Logo";
 import { demoLabelEnabled } from "@/lib/env";
 import { DemoBadge } from "@/components/ui/DemoBadge";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 export function AuthShell({
   title,
@@ -21,7 +22,10 @@ export function AuthShell({
         <Link href="/" aria-label="EduWorld home">
           <Logo />
         </Link>
-        {demoLabelEnabled() && <DemoBadge />}
+        <div className="flex items-center gap-3">
+          {demoLabelEnabled() && <DemoBadge />}
+          <ThemeToggle />
+        </div>
       </header>
 
       <main className="flex flex-1 items-start justify-center px-4 pb-16 pt-6 sm:px-6">
