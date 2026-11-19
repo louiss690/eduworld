@@ -171,7 +171,7 @@ export default async function DashboardPage() {
               <h2 id="recommended-heading" className="text-lg font-bold text-navy-950">
                 Recommended for you
               </h2>
-              <ul className="mt-4 grid gap-4 sm:grid-cols-2">
+              <ul className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
                 {recommended.map((course) => (
                   <li key={course.id}>
                     <Link href={`/courses/${course.slug}`} className="card flex gap-4 p-4 transition-shadow hover:shadow-md">

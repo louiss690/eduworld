@@ -5,6 +5,7 @@ import { FeaturedCourses } from "@/components/home/FeaturedCourses";
 import { HowItWorks } from "@/components/home/HowItWorks";
 import { AITutorSection } from "@/components/home/AITutorSection";
 import { AccessibilitySection } from "@/components/home/AccessibilitySection";
+import { GlobalLearners } from "@/components/home/GlobalLearners";
 import { Testimonials } from "@/components/home/Testimonials";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { getDataStore } from "@/services/data";
@@ -34,6 +35,7 @@ export default async function HomePage() {
       <HowItWorks />
       <AITutorSection />
       <AccessibilitySection />
+      <GlobalLearners />
       <Testimonials />
       <FinalCTA />
     </>
