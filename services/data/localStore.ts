@@ -1,6 +1,7 @@
 import { randomUUID } from "node:crypto";
-import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync, accessSync, constants } from "node:fs";
 import { dirname, join } from "node:path";
+import { tmpdir } from "node:os";
 import type {
   Achievement,
   AIConversation,
@@ -79,8 +80,36 @@ function emptyState(): LocalState {
   };
 }
 
+let resolvedDataFile: string | null = null;
+
+/**
+ * Chooses a writable location for the demo database.
+ *  - Normal environments: <project>/.local-data/db.json
+ *  - Read-only filesystems (serverless): os.tmpdir()/edu-demo/db.json
+ * The first candidate that can be created/written wins; result is cached.
+ */
 function dataFile(): string {
-  return join(process.cwd(), ".local-data", "db.json");
+  if (resolvedDataFile) return resolvedDataFile;
+  const candidates = [
+    join(process.cwd(), ".local-data", "db.json"),
+    join(tmpdir(), "edu-demo", "db.json"),
+  ];
+  for (const candidate of candidates) {
+    try {
+      const dir = dirname(candidate);
+      if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
+      const probe = join(dir, ".write-probe");
+      writeFileSync(probe, "ok", "utf8");
+      accessSync(probe, constants.R_OK | constants.W_OK);
+      resolvedDataFile = candidate;
+      return candidate;
+    } catch {
+      // try next candidate
+    }
+  }
+  // Last resort: memory-only (persist() will silently disable writing).
+  resolvedDataFile = join(process.cwd(), ".local-data", "db.json");
+  return resolvedDataFile;
 }
 
 const BUILTIN_USERS: User[] = [
