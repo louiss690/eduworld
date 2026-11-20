@@ -102,6 +102,8 @@ const BUILTIN_USERS: User[] = [
 
 class LocalStore implements DataStore {
   private state: LocalState;
+  /** Set true once a disk write fails (e.g. read-only serverless FS). */
+  private persistDisabled = false;
 
   constructor() {
     this.state = this.load();
@@ -130,12 +132,21 @@ class LocalStore implements DataStore {
   }
 
   private persist(): void {
-    const file = dataFile();
-    const dir = dirname(file);
-    if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
-    const temp = `${file}.tmp`;
-    writeFileSync(temp, JSON.stringify(this.state, null, 0), "utf8");
-    renameSync(temp, file);
+    if (this.persistDisabled) return;
+    try {
+      const file = dataFile();
+      const dir = dirname(file);
+      if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
+      const temp = `${file}.tmp`;
+      writeFileSync(temp, JSON.stringify(this.state, null, 0), "utf8");
+      renameSync(temp, file);
+    } catch {
+      // Read-only filesystem (serverless/writable-less environments): keep
+      // working purely in memory for this process instance. Registration and
+      // learning stay functional; data is per-instance and resets on cold
+      // start, which is acceptable and clearly labelled demo behavior.
+      this.persistDisabled = true;
+    }
   }
 
   // ── Catalog (seed, immutable) ───────────────────────────────────────────
