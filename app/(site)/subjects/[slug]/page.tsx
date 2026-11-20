@@ -65,7 +65,7 @@ export default async function SubjectPage({
           </div>
         ) : (
           <p className="mt-6 rounded-xl border border-dashed border-line bg-paper px-6 py-10 text-sm text-muted">
-            No courses in this subject yet — check back soon.
+            No courses in this subject yet, check back soon.
           </p>
         )}
       </section>

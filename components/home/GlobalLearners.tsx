@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Reveal } from "@/components/ui/Reveal";
 
 /**
- * A world of learners — authentic learners drawn from many countries and
+ * A world of learners, authentic learners drawn from many countries and
  * backgrounds, because EduWorld belongs to every student.
  */
 const LEARNERS = [

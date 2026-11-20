@@ -42,3 +42,5 @@ next-env.d.ts
 
 # Local demo database (never commit)
 .local-data/
+
+.vercel

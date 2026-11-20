@@ -3,7 +3,7 @@ import type { AIProvider, TutorRequest, TutorResponse } from "./types";
 import { TUTOR_SYSTEM_PROMPT } from "./types";
 
 /**
- * OpenAI-compatible provider — works with OpenAI, OpenRouter, Groq, Azure
+ * OpenAI-compatible provider, works with OpenAI, OpenRouter, Groq, Azure
  * OpenAI and any compatible endpoint via OPENAI_BASE_URL.
  */
 export class OpenAICompatibleProvider implements AIProvider {

@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 
 /**
- * AnimationGuard — safety net for entrance animations.
+ * AnimationGuard, safety net for entrance animations.
  *
  * If the hero entrance animation hasn't completed shortly after load (for
  * example on a throttled preview or if any animation failure occurs), the

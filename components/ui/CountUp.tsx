@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 /**
- * CountUp — animates a number from 0 to its target when visible.
+ * CountUp, animates a number from 0 to its target when visible.
  * Uses requestAnimationFrame with an ease-out curve; respects reduced motion
  * by rendering the final value immediately (CSS handles the duration clip,
  * and we also skip the loop when the media query matches).

@@ -26,13 +26,13 @@ import type {
 import type { DataStore } from "./types";
 
 /**
- * SupabaseStore — production backend backed by Supabase (PostgreSQL + Auth).
+ * SupabaseStore, production backend backed by Supabase (PostgreSQL + Auth).
  *
  * Uses the service-role key server-side. Authorization is enforced at the
  * application layer (requireUser + role checks) AND in the database via
  * Row Level Security policies defined in `database/migrations/001_init.sql`.
  *
- * Throw with a descriptive message if the environment is not configured —
+ * Throw with a descriptive message if the environment is not configured -
  * the app should never silently fall back to demo data when a real backend
  * is expected.
  */
@@ -506,7 +506,7 @@ let storeSingleton: DataStore | null = null;
 
 /**
  * Returns the Supabase-backed store. Constructed lazily so the module can be
- * imported (and compiled) even when Supabase is not configured — calling
+ * imported (and compiled) even when Supabase is not configured, calling
  * this function without credentials throws with a clear message.
  */
 export function getSupabaseStore(): DataStore {

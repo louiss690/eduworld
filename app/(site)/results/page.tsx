@@ -49,7 +49,7 @@ export default async function ResultsPage() {
           My quiz results
         </h1>
         <p className="mt-3 max-w-2xl text-base text-muted">
-          Review every attempt, your answers and the explanations — spot the
+          Review every attempt, your answers and the explanations, spot the
           topics to revisit.
         </p>
 
@@ -85,7 +85,7 @@ export default async function ResultsPage() {
                       const prompt = attempt.questionPrompts.get(a.questionId) ?? "Question";
                       const options = attempt.questionOptions.get(a.questionId) ?? [];
                       const chosenLabel =
-                        typeof a.given === "number" ? options[a.given] ?? "—" : String(a.given || "—");
+                        typeof a.given === "number" ? options[a.given] ?? "-" : String(a.given || "-");
                       return (
                         <li key={a.questionId} className={cn("rounded-xl border p-4", a.correct ? "border-emerald-200 bg-emerald-50/60" : "border-red-200 bg-red-50/50")}>
                           <div className="flex gap-3">

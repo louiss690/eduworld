@@ -22,7 +22,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "EduWorld — Education Without Borders",
+    default: "EduWorld, Education Without Borders",
     template: "%s | EduWorld",
   },
   description:
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   openGraph: {
-    title: "EduWorld — Education Without Borders",
+    title: "EduWorld, Education Without Borders",
     description:
       "Quality education accessible to every learner, everywhere. Courses, lessons, quizzes and an AI tutor.",
     type: "website",

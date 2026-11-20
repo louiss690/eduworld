@@ -196,7 +196,7 @@ export function TutorChat({
                 <h2 className="mt-4 text-lg font-bold text-navy-950">AI Tutor requires configuration</h2>
                 <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-muted">
                   The tutor is not connected to an AI provider yet, so it won't
-                  generate responses — including simulated ones. Add{" "}
+                  generate responses, including simulated ones. Add{" "}
                   <code className="rounded bg-surface1 px-1.5 py-0.5 text-[13px] text-brand-700">OPENAI_API_KEY</code>{" "}
                   to <code className="rounded bg-surface1 px-1.5 py-0.5 text-[13px] text-brand-700">.env.local</code>{" "}
                   to enable it. (A clearly-labelled demo tutor can be enabled
@@ -213,12 +213,12 @@ export function TutorChat({
                 <h2 className="mt-4 text-lg font-bold text-navy-950">Ask me anything you're learning</h2>
                 <p className="mt-2 text-sm leading-relaxed text-muted">
                   I explain topics step by step, generate practice questions, and
-                  help you learn from mistakes — without giving away the answer
+                  help you learn from mistakes, without giving away the answer
                   too early.
                 </p>
                 {demoProvider && (
                   <p className="mt-4 rounded-xl border border-gold-500/40 bg-gold-100 px-4 py-3 text-[13px] text-gold-700">
-                    Demo tutor enabled (ALLOW_DEMO_TUTOR) — replies are clearly
+                    Demo tutor enabled (ALLOW_DEMO_TUTOR), replies are clearly
                     labelled demo responses. Add an API key for the real tutor.
                   </p>
                 )}
@@ -308,7 +308,7 @@ export function TutorChat({
                 </button>
               </form>
               <p className="mt-2.5 text-[11px] text-muted">
-                The tutor guides you to understanding — it won't just hand over answers.
+                The tutor guides you to understanding, it won't just hand over answers.
               </p>
             </>
           )}

@@ -16,7 +16,7 @@ import { getDataStore } from "@/services/data";
 // ── Demo-mode signed session cookie ──────────────────────────────────────────
 // Only used when Supabase is not configured. The cookie carries a compact
 // HMAC-signed payload (uid/email/name/role/exp) so page and API code can
-// trust it server-side. This is a development convenience — production
+// trust it server-side. This is a development convenience, production
 // authentication always runs through Supabase Auth.
 
 const COOKIE_NAME = "ew_session";

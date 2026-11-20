@@ -131,7 +131,7 @@ export function QuizRunner({
               )}
             </p>
             {result.passed && (
-              <p className="mt-2 text-sm text-muted">Well done — you&apos;re building momentum!</p>
+              <p className="mt-2 text-sm text-muted">Well done, you&apos;re building momentum!</p>
             )}
           </div>
 
@@ -157,21 +157,21 @@ export function QuizRunner({
                         {q.type === "true_false" && (
                           <p className="mt-2 text-sm">
                             <span className="text-muted">Your answer: </span>
-                            <span className="font-medium text-navy-900">{q.options[chosenIndex] ?? "—"}</span>
+                            <span className="font-medium text-navy-900">{q.options[chosenIndex] ?? "-"}</span>
                           </p>
                         )}
                         {q.type === "multiple_choice" && (
                           <p className="mt-2 text-sm">
                             <span className="text-muted">Your answer: </span>
                             <span className="font-medium text-navy-900">
-                              {q.options[chosenIndex] ?? "—"}
+                              {q.options[chosenIndex] ?? "-"}
                             </span>
                           </p>
                         )}
                         {isShort && (
                           <p className="mt-2 text-sm">
                             <span className="text-muted">Your answer: </span>
-                            <span className="font-medium text-navy-900">{String(graded?.given ?? "—")}</span>
+                            <span className="font-medium text-navy-900">{String(graded?.given ?? "-")}</span>
                           </p>
                         )}
                         <p className="mt-3 rounded-lg bg-paper px-3.5 py-2.5 text-[13px] leading-relaxed text-navy-800">

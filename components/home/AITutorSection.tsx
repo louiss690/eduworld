@@ -30,7 +30,7 @@ export function AITutorSection() {
           <p className="mt-5 max-w-xl text-base leading-relaxed text-deep-2">
             EduWorld&apos;s AI tutor helps you understand difficult topics, answer
             questions, and practise until it clicks. It never just hands you the
-            answer — it coaches you to find it yourself.
+            answer, it coaches you to find it yourself.
           </p>
 
           <ul className="mt-8 space-y-5">
@@ -52,7 +52,7 @@ export function AITutorSection() {
           </Link>
         </Reveal>
 
-        {/* Chat preview — a static, honest mock of the tutor interface */}
+        {/* Chat preview, a static, honest mock of the tutor interface */}
         <Reveal delay={150} className="relative">
           <div className="anim-float card overflow-hidden !bg-surface1">
             <div className="flex items-center gap-3 border-b border-line bg-surface2 px-5 py-3.5">

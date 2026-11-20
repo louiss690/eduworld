@@ -141,7 +141,7 @@ export function ReportsTable({ reports }: { reports: Report[] }) {
       )}
       {reports.length === 0 ? (
         <p className="rounded-xl border border-dashed border-line bg-paper px-5 py-10 text-center text-sm text-muted">
-          No reports yet — reported content will appear here.
+          No reports yet, reported content will appear here.
         </p>
       ) : (
         <ul className="divide-y divide-line">

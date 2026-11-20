@@ -34,7 +34,7 @@ export default function AboutPage() {
           </p>
           <p className="mt-4 text-base leading-relaxed text-ink/90">
             We are building a global educational ecosystem that helps students
-            learn, develop skills and find opportunity — regardless of country,
+            learn, develop skills and find opportunity, regardless of country,
             financial background, language or access to resources. Our platform
             pairs structured courses with AI-powered personal support, and we
             design every part of it to work on modest devices and slow

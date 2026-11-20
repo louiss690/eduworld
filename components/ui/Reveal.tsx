@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 
 import { cn } from "@/lib/utils";
 
 /**
- * Reveal — scroll-triggered entrance animation.
+ * Reveal, scroll-triggered entrance animation.
  *
  * Adds a `.reveal` class (hidden state) and flips it to `.is-visible` when
  * the element enters the viewport. Only transform/opacity are animated, and

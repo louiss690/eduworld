@@ -36,7 +36,7 @@ export default async function TeacherPage() {
         <h1 className="mt-3 text-3xl font-bold tracking-tight text-navy-950">Teaching workspace</h1>
         <p className="mt-3 max-w-2xl text-base text-muted">
           Create and manage courses, lessons and quiz content. New courses are
-          unpublished by default — an administrator publishes them.
+          unpublished by default, an administrator publishes them.
         </p>
 
         {/* Stats */}

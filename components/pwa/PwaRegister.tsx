@@ -32,7 +32,7 @@ export function PwaRegister() {
   return (
     <div className="fixed bottom-4 left-1/2 z-50 flex -translate-x-1/2 items-center gap-2.5 rounded-full border border-white/20 bg-deep px-4 py-2.5 text-sm font-medium text-white shadow-xl">
       <WifiOff className="size-4 text-deep-eyebrow" aria-hidden />
-      You're offline — previously visited pages still work.
+      You're offline, previously visited pages still work.
       {installed && <span className="text-deep-2">·</span>}
       {installed && (
         <span className="inline-flex items-center gap-1 text-deep-2">

@@ -16,7 +16,7 @@ export function FeaturedCourses({ cards }: { cards: CourseCardType[] }) {
             </h2>
             <p className="mt-4 text-base leading-relaxed text-muted">
               Short, focused courses with lessons, practice and a checkpoint
-              quiz in every one. The catalog below is demonstration content —
+              quiz in every one. The catalog below is demonstration content -
               real courses will be added by educators.
             </p>
           </div>

@@ -58,7 +58,7 @@ export default async function LibraryPage({
             Explore courses
           </h1>
           <p className="mt-3 max-w-2xl text-base text-muted">
-            Lessons, videos, practise and downloadable materials — all in one
+            Lessons, videos, practise and downloadable materials, all in one
             place. Filter by subject and level.
           </p>
 

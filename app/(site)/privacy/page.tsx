@@ -35,7 +35,7 @@ export default function PrivacyPage() {
           <ul>
             <li>We don't sell personal data or use it for third-party advertising.</li>
             <li>We don't require photo ID, payment details or addresses for core learning.</li>
-            <li>We don't share student records publicly — dashboards are private.</li>
+            <li>We don't share student records publicly, dashboards are private.</li>
           </ul>
           <h3>Minors and parental controls</h3>
           <p>

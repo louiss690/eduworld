@@ -9,7 +9,7 @@ interface StartParams {
 }
 
 /**
- * /courses/:slug/lessons/start — resumes the first incomplete lesson,
+ * /courses/:slug/lessons/start, resumes the first incomplete lesson,
  * or starts the course from lesson one.
  */
 export default async function StartLessonPage({ params }: { params: Promise<StartParams> }) {

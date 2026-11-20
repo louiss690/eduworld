@@ -10,7 +10,7 @@ const ITEMS = [
   {
     icon: Languages,
     title: "Multilingual education",
-    text: "English today — French, Spanish, Portuguese, Arabic, Swahili and Twi coming.",
+    text: "English today, French, Spanish, Portuguese, Arabic, Swahili and Twi coming.",
   },
   {
     icon: Download,

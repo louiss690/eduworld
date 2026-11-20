@@ -25,7 +25,7 @@ const FAQS = [
   },
   {
     q: "Which languages are available?",
-    a: "Content is English-first today. French, Spanish, Portuguese, Arabic, Swahili and Twi are on the roadmap — your preferred language tells us where to focus.",
+    a: "Content is English-first today. French, Spanish, Portuguese, Arabic, Swahili and Twi are on the roadmap, your preferred language tells us where to focus.",
   },
   {
     q: "What does 'Demo content' mean?",

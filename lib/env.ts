@@ -1,6 +1,6 @@
 /**
  * Typed, validated access to environment variables.
- * Never import this module from client components — it reads server-only
+ * Never import this module from client components, it reads server-only
  * secrets (process.env at runtime). Client code should only read the
  * NEXT_PUBLIC_* values through this module's public helpers.
  */
@@ -60,7 +60,7 @@ export function aiProviderConfig(): AIProviderConfig | null {
 
 /**
  * Demo tutor opt-in. When false (default), the tutor refuses to respond
- * unless a real AI provider is configured — the platform never pretends an
+ * unless a real AI provider is configured, the platform never pretends an
  * unavailable AI is functional. Set ALLOW_DEMO_TUTOR=true only for
  * development/demo environments, where replies are clearly labelled.
  */

@@ -8,7 +8,7 @@ import { getDataStore } from "@/services/data";
 
 export const metadata: Metadata = {
   title: "Create your account",
-  description: "Join EduWorld — quality education accessible to every learner.",
+  description: "Join EduWorld, quality education accessible to every learner.",
 };
 
 export const dynamic = "force-dynamic";

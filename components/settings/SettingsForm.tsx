@@ -148,7 +148,7 @@ export function SettingsForm({
                 onClick={() => toggleSubject(subject.id)}
                 aria-pressed={selected}
                 className={cn(
-                  "rounded-full border px-3.5 py-1.5 text-[13px] font-medium transition-colors",
+                  "rounded-lg border px-3.5 py-1.5 text-[13px] font-medium transition-colors",
                   selected
                     ? "border-brand-400 bg-brand-50 text-brand-800"
                     : "border-line bg-surface1 text-navy-800 hover:border-navy-300"

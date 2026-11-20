@@ -31,8 +31,8 @@ export interface PublicQuestion {
 
 /**
  * Data store contract. EduWorld ships with two implementations:
- *  - LocalStore    — in-memory demo data (default, zero-config)
- *  - SupabaseStore — production backend backed by Supabase/PostgreSQL
+ *  - LocalStore   , in-memory demo data (default, zero-config)
+ *  - SupabaseStore, production backend backed by Supabase/PostgreSQL
  * Both expose the same interface, so page and API code is store-agnostic.
  */
 export interface DataStore {
@@ -67,7 +67,7 @@ export interface DataStore {
   getUserById(id: string): Promise<User | null>;
   /**
    * Demo-mode credential check (LocalStore only). Returns the user when the
-   * password matches the stored hash. Supabase deployments never use this —
+   * password matches the stored hash. Supabase deployments never use this -
    * Supabase Auth handles password verification.
    */
   verifyCredentials?(email: string, password: string): Promise<User | null>;

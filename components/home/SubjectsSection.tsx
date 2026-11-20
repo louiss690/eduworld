@@ -38,7 +38,7 @@ export function SubjectsSection({ subjects }: { subjects: Subject[] }) {
           </h2>
           <p className="mt-4 text-base leading-relaxed text-muted">
             Ten foundational subjects, taught with clarity and care. Start
-            anywhere — your pace, your level.
+            anywhere, your pace, your level.
           </p>
         </Reveal>
 

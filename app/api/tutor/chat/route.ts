@@ -31,7 +31,7 @@ export async function POST(request: Request) {
   const limit = rateLimit(clientKey(request), { max: 20 });
   if (!limit.ok) {
     return NextResponse.json(
-      { ok: false, error: "Slow down — you're sending messages too quickly." },
+      { ok: false, error: "Slow down, you're sending messages too quickly." },
       { status: 429 }
     );
   }

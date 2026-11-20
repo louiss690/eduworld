@@ -26,7 +26,7 @@ export default async function TutorPage() {
           <p className="eyebrow">AI Tutor</p>
           <h1 className="text-2xl font-bold tracking-tight text-navy-950">Your personal learning companion</h1>
           <p className="mt-1 text-sm text-muted">
-            Explain a topic, ask a question or practise — the tutor coaches you step by step.
+            Explain a topic, ask a question or practise, the tutor coaches you step by step.
           </p>
         </div>
 

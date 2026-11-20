@@ -59,9 +59,9 @@ export default async function DashboardPage() {
             </span>
             <div>
               <p className="text-sm text-muted">Welcome back,</p>
-              <h1 className="text-2xl font-bold tracking-tight text-navy-950 sm:text-3xl">{first} 👋</h1>
+              <h1 className="text-2xl font-bold tracking-tight text-navy-950 sm:text-3xl">{first}</h1>
               <p className="mt-1 text-sm text-muted">
-                {country ? `📍 ${country.name}` : "Wherever you are, keep learning."}
+                {country ? `${country.name}` : "Wherever you are, keep learning."}
                 {language?.available === false && ` · ${language.name} content coming soon`}
               </p>
               {chosenSubjects.length > 0 && (
@@ -237,7 +237,7 @@ export default async function DashboardPage() {
               <div>
                 <dt className="text-[13px] text-muted">Average quiz score</dt>
                 <dd className="mt-1 text-2xl font-bold tabular-nums text-navy-950">
-                  {summary.averageQuizScore === null ? "—" : <CountUp value={summary.averageQuizScore} suffix="%" />}
+                  {summary.averageQuizScore === null ? "-" : <CountUp value={summary.averageQuizScore} suffix="%" />}
                 </dd>
               </div>
               <div>
@@ -383,12 +383,12 @@ export default async function DashboardPage() {
               <div className="flex items-center gap-2.5">
                 <Globe2 className="size-4 text-muted" />
                 <dt className="text-muted">Country</dt>
-                <dd className="ml-auto font-medium text-navy-900">{country?.name ?? "—"}</dd>
+                <dd className="ml-auto font-medium text-navy-900">{country?.name ?? "-"}</dd>
               </div>
               <div className="flex items-center gap-2.5">
                 <TrendingUp className="size-4 text-muted" />
                 <dt className="text-muted">Level</dt>
-                <dd className="ml-auto font-medium text-navy-900">{level?.name ?? "—"}</dd>
+                <dd className="ml-auto font-medium text-navy-900">{level?.name ?? "-"}</dd>
               </div>
             </dl>
           </section>

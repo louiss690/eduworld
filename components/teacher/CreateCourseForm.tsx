@@ -42,7 +42,7 @@ export function CreateCourseForm({ subjects }: { subjects: Subject[] }) {
     <form onSubmit={onSubmit} className="space-y-4">
       {created && (
         <div className="flex items-center gap-2 rounded-lg border border-emerald-200 bg-emerald-50 px-3.5 py-3 text-sm text-emerald-700">
-          <CheckCircle2 className="size-4" /> Course created — it is unpublished until an admin publishes it.
+          <CheckCircle2 className="size-4" /> Course created, it is unpublished until an admin publishes it.
         </div>
       )}
       {error && (

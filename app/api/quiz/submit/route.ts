@@ -46,7 +46,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "Quiz not found." }, { status: 404 });
   }
 
-  // Reject submissions missing questions — grading must be complete.
+  // Reject submissions missing questions, grading must be complete.
   if (parsed.data.answers.length !== quiz.questions.length) {
     return NextResponse.json(
       { ok: false, error: "Please answer every question before submitting." },

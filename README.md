@@ -1,7 +1,7 @@
-# EduWorld — Education Without Borders, Knowledge Without Limits
+# EduWorld, Education Without Borders, Knowledge Without Limits
 
 EduWorld is an international, AI-powered educational platform that makes quality
-education accessible to every learner, everywhere — regardless of country,
+education accessible to every learner, everywhere, regardless of country,
 financial background, language or access to resources.
 
 This is a fully functional full-stack MVP:
@@ -85,8 +85,8 @@ npm test
 
 1. Create a free project at [supabase.com](https://supabase.com).
 2. Open **SQL Editor** and run the migrations in order:
-   - `database/migrations/001_init.sql` — full schema (22 tables, RLS, triggers, indexes)
-   - `database/migrations/002_seed.sql` — reference data + demonstration catalog
+   - `database/migrations/001_init.sql`, full schema (22 tables, RLS, triggers, indexes)
+   - `database/migrations/002_seed.sql`, reference data + demonstration catalog
 3. Copy the project URL and anon key into `.env.local` (`NEXT_PUBLIC_SUPABASE_URL`,
    `NEXT_PUBLIC_SUPABASE_ANON_KEY`), and the service-role key (`SUPABASE_SERVICE_ROLE_KEY`).
 4. In Supabase **Authentication → Providers**, enable **Email** and decide on
@@ -111,7 +111,7 @@ OPENAI_API_KEY=sk-...
 The tutor endpoint is `POST /api/tutor/chat`. It includes request validation,
 per-IP+user rate limiting, topic whitelisting and a Socratic system prompt.
 If no key is configured, the tutor refuses to respond (HTTP 503) and the UI
-shows a configuration-required state — the platform never fabricates AI
+shows a configuration-required state, the platform never fabricates AI
 responses. A clearly-labelled built-in demo tutor can be enabled explicitly
 for development with `ALLOW_DEMO_TUTOR=true`.
 
@@ -130,7 +130,7 @@ Key design points:
 - Indexes on all foreign keys and common query paths
 - Row Level Security enabled on every table (self-service + staff policies)
 - `updated_at` triggers; JSONB for structured lesson blocks and quiz answers
-- Correct answers live only in the `questions` table behind RLS — they are
+- Correct answers live only in the `questions` table behind RLS, they are
   never exposed to the quiz UI before submission
 
 ## Project structure
@@ -177,4 +177,4 @@ tests/                    # Vitest unit tests
 - Supabase storage for uploaded educational materials
 
 ---
-© EduWorld — built as a foundation for a global educational technology company.
+© EduWorld, built as a foundation for a global educational technology company.

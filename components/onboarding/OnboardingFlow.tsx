@@ -117,7 +117,7 @@ export function OnboardingFlow({
               <Sparkles className="size-7" />
             </span>
             <h2 className="mt-5 text-2xl font-bold text-navy-950">
-              Welcome, {user.name.split(" ")[0]} 👋
+              Welcome, {user.name.split(" ")[0]}
             </h2>
             <p className="mx-auto mt-3 max-w-md text-base leading-relaxed text-muted">
               Let&apos;s set up your learning space in under a minute. You can
@@ -133,7 +133,7 @@ export function OnboardingFlow({
           <div>
             <h2 className="text-xl font-bold text-navy-950">What do you want to study?</h2>
             <p className="mt-2 text-sm text-muted">
-              Pick one or more subjects — this personalises your recommendations.
+              Pick one or more subjects, this personalises your recommendations.
             </p>
             <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
               {subjects.map((subject) => {
@@ -174,7 +174,7 @@ export function OnboardingFlow({
         {step === 2 && (
           <div>
             <h2 className="text-xl font-bold text-navy-950">Almost there</h2>
-            <p className="mt-2 text-sm text-muted">Confirm your details — you can update these any time.</p>
+            <p className="mt-2 text-sm text-muted">Confirm your details, you can update these any time.</p>
 
             <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
               <div>

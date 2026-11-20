@@ -28,7 +28,7 @@ import { demoCatalog } from "@/data/demo";
 import type { DataStore } from "./types";
 
 /**
- * LocalStore — the zero-configuration demo backend, persisted to a local
+ * LocalStore, the zero-configuration demo backend, persisted to a local
  * JSON file.
  *
  * Why a file? Next.js compiles server components and route handlers as

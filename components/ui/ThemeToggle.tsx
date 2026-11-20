@@ -5,7 +5,7 @@ import { Moon, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /**
- * ThemeToggle — switches between light and dark mode.
+ * ThemeToggle, switches between light and dark mode.
  *
  * Persists the choice in localStorage (`ew-theme`); before the user ever
  * chooses, the OS preference applies (set by the inline init script in the
@@ -35,7 +35,7 @@ export function ThemeToggle({ className }: { className?: string }) {
     try {
       localStorage.setItem("ew-theme", next);
     } catch {
-      /* private mode — theme still applies for this session */
+      /* private mode, theme still applies for this session */
     }
     setDark(next === "dark");
   }

@@ -171,7 +171,7 @@ html.theme-anim *::after {
     @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
   }
 
-  /* Buttons — base + variants (motion lives in the motion section below) */
+  /* Buttons, base + variants (motion lives in the motion section below) */
   .btn,
   .btn-primary,
   .btn-secondary,

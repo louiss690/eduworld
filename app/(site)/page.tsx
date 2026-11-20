@@ -6,13 +6,12 @@ import { HowItWorks } from "@/components/home/HowItWorks";
 import { AITutorSection } from "@/components/home/AITutorSection";
 import { AccessibilitySection } from "@/components/home/AccessibilitySection";
 import { GlobalLearners } from "@/components/home/GlobalLearners";
-import { Testimonials } from "@/components/home/Testimonials";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { getDataStore } from "@/services/data";
 import { toCourseCards } from "@/services/catalog";
 
 export const metadata: Metadata = {
-  title: "EduWorld — Education Without Borders",
+  title: "EduWorld, Education Without Borders",
   description:
     "Discover quality educational resources, develop new skills and receive personalized learning support with EduWorld.",
 };
@@ -36,7 +35,6 @@ export default async function HomePage() {
       <AITutorSection />
       <AccessibilitySection />
       <GlobalLearners />
-      <Testimonials />
       <FinalCTA />
     </>
   );
