@@ -5,11 +5,17 @@
  * NEXT_PUBLIC_* values through this module's public helpers.
  */
 
-export function hasSupabaseConfig(): boolean {
-  return Boolean(
-    process.env.NEXT_PUBLIC_SUPABASE_URL &&
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+/** Publishable key (new naming) or classic anon key. */
+function supabasePublishableKey(): string | null {
+  return (
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+    null
   );
+}
+
+export function hasSupabaseConfig(): boolean {
+  return Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && supabasePublishableKey());
 }
 
 export function supabaseUrl(): string | null {
@@ -17,7 +23,7 @@ export function supabaseUrl(): string | null {
 }
 
 export function supabaseAnonKey(): string | null {
-  return process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || null;
+  return supabasePublishableKey();
 }
 
 /** Server-only. Use only inside route handlers / server contexts. */
