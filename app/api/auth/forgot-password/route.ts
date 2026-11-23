@@ -47,7 +47,16 @@ export async function POST(request: Request) {
     redirectTo: `${getSiteUrl()}/reset-password`,
   });
   if (error) {
-    return NextResponse.json({ ok: false, error: error.message }, { status: 400 });
+    const isRateLimit = /rate limit/i.test(error.message) || /too many/i.test(error.message);
+    return NextResponse.json(
+      {
+        ok: false,
+        error: isRateLimit
+          ? "Too many reset requests for this email. Please wait about an hour and try again."
+          : error.message,
+      },
+      { status: isRateLimit ? 429 : 400 }
+    );
   }
   return NextResponse.json({ ok: true });
 }
