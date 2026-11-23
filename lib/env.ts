@@ -5,6 +5,20 @@
  * NEXT_PUBLIC_* values through this module's public helpers.
  */
 
+/**
+ * Stable public base URL used for email links (verification, password reset).
+ * Never derived from the incoming request origin, so links always point at
+ * the real site even if a request came from a local server.
+ */
+export function getSiteUrl(): string {
+  return (
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    (process.env.NODE_ENV === "production"
+      ? "https://eduworld-learn.vercel.app"
+      : "http://localhost:3000")
+  );
+}
+
 /** Publishable key (new naming) or classic anon key. */
 function supabasePublishableKey(): string | null {
   return (

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { hashPassword } from "@/lib/password";
 import { clientKey, rateLimit } from "@/lib/rate-limit";
-import { isDemoDataMode } from "@/lib/env";
+import { getSiteUrl, isDemoDataMode } from "@/lib/env";
 import { getDataStore } from "@/services/data";
 import { createDemoSession, supabaseServer } from "@/services/auth/session";
 import { registerSchema } from "@/services/auth/schemas";
@@ -69,13 +69,12 @@ export async function POST(request: Request) {
 
   // ── Supabase mode ──────────────────────────────────────────────────────
   const supabase = await supabaseServer();
-  const origin = new URL(request.url).origin;
   const { data, error } = await supabase.auth.signUp({
     email: input.email,
     password: input.password,
     options: {
       data: { name: input.name },
-      emailRedirectTo: `${origin}/verify`,
+      emailRedirectTo: `${getSiteUrl()}/verify`,
     },
   });
 

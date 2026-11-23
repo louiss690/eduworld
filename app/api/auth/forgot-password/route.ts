@@ -3,6 +3,7 @@ import { clientKey, rateLimit } from "@/lib/rate-limit";
 import { isDemoDataMode } from "@/lib/env";
 import { supabaseServer } from "@/services/auth/session";
 import { forgotSchema } from "@/services/auth/schemas";
+import { getSiteUrl } from "@/lib/env";
 
 export const runtime = "nodejs";
 
@@ -42,9 +43,8 @@ export async function POST(request: Request) {
 
   // ── Supabase mode ──────────────────────────────────────────────────────
   const supabase = await supabaseServer();
-  const origin = new URL(request.url).origin;
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${origin}/reset-password`,
+    redirectTo: `${getSiteUrl()}/reset-password`,
   });
   if (error) {
     return NextResponse.json({ ok: false, error: error.message }, { status: 400 });
