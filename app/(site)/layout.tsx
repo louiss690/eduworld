@@ -1,5 +1,5 @@
 import { SiteHeader } from "@/components/layout/SiteHeader";
-import { SiteFooter } from "@/components/layout/SiteFooter";
+import { FooterGate } from "@/components/layout/FooterGate";
 import { PwaRegister } from "@/components/pwa/PwaRegister";
 import { AnimationGuard } from "@/components/ui/AnimationGuard";
 
@@ -8,7 +8,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
       <main className="flex-1">{children}</main>
-      <SiteFooter />
+      <FooterGate />
       <PwaRegister />
       <AnimationGuard />
     </div>
