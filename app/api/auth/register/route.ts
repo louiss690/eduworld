@@ -118,6 +118,10 @@ export async function POST(request: Request) {
   return NextResponse.json({
     ok: true,
     needsVerification: true,
-    demoNotice: "An email verification link was sent. In the demo environment no email is actually delivered.",
+    // Only mention the demo caveat when the app is genuinely running without
+    // Supabase; with Supabase connected, a real verification email is sent.
+    demoNotice: isDemoDataMode()
+      ? "An email verification link was sent. In the demo environment no email is actually delivered."
+      : undefined,
   });
 }
