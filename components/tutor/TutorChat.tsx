@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import {
   AlertCircle,
+  ArrowLeft,
   Bot,
   Loader2,
   MessageSquarePlus,
@@ -180,6 +181,29 @@ export function TutorChat({
             </div>
           </div>
           {demoProvider && <DemoBadge />}
+            {/* Mobile: the conversation sidebar is hidden below lg, so offer
+                new-conversation and back navigation here. */}
+            <button
+              type="button"
+              onClick={() => {
+                setActiveId(null);
+                setMessages([]);
+                setError(null);
+              }}
+              className="grid size-9 place-items-center rounded-lg border border-line text-navy-800 transition-colors hover:bg-surface3 lg:hidden"
+              aria-label="Start a new conversation"
+              title="New conversation"
+            >
+              <MessageSquarePlus className="size-4" />
+            </button>
+            <Link
+              href="/dashboard"
+              className="grid size-9 place-items-center rounded-lg border border-line text-navy-800 transition-colors hover:bg-surface3 lg:hidden"
+              aria-label="Back to dashboard"
+              title="Back to dashboard"
+            >
+              <ArrowLeft className="size-4" />
+            </Link>
         </div>
 
         <div className="flex-1 overflow-y-auto px-5 py-6">
