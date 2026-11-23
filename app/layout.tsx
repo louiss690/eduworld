@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/services/auth/auth-context";
+import { PwaRegister } from "@/components/pwa/PwaRegister";
+import { AnimationGuard } from "@/components/ui/AnimationGuard";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -60,6 +62,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-screen font-sans antialiased">
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <AuthProvider>{children}</AuthProvider>
+        <PwaRegister />
+        <AnimationGuard />
       </body>
     </html>
   );
