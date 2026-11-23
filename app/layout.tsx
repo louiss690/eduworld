@@ -1,16 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Lora, Geist_Mono } from "next/font/google";
+import { Inter, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/services/auth/auth-context";
 
 const inter = Inter({
   variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const lora = Lora({
-  variable: "--font-lora",
   subsets: ["latin"],
   display: "swap",
 });
@@ -61,7 +55,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${inter.variable} ${lora.variable} ${geistMono.variable}`}
+      className={`${inter.variable} ${geistMono.variable}`}
     >
       <body className="min-h-screen font-sans antialiased">
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />

@@ -113,7 +113,7 @@ export default async function CoursePage({
                 />
               )}
             </div>
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#0b1428]/90 to-transparent p-5">
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/90 to-transparent p-5">
               <p className="text-sm font-medium text-white">{course.instructor.name}</p>
               <p className="text-[13px] text-deep-2">{course.instructor.title}</p>
             </div>

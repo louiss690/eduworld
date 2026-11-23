@@ -22,6 +22,7 @@ export interface DashboardBundle {
   recentLessons: { lessonId: string; title: string; courseId: string; courseSlug: string; courseTitle: string; at: string }[];
   recentAttempts: { attempt: QuizAttempt; quizTitle: string }[];
   bookmarks: ResolvedBookmark[];
+  subjectProgress: { subjectName: string; done: number; total: number; pct: number }[];
 }
 
 async function resolveBookmark(
@@ -183,5 +184,28 @@ export async function buildStudentSummary(
     if (resolvedBookmarks.length >= 8) break;
   }
 
-  return { summary, enrollments: enriched, recommended, recentLessons, recentAttempts, bookmarks: resolvedBookmarks };
+  // Real per-subject completion across enrolled courses.
+  const subjects = await store.getSubjects();
+  const subjectProgress: DashboardBundle["subjectProgress"] = [];
+  for (const subject of subjects) {
+    const subjectCourses = enriched.filter((e) => e.course.subjectId === subject.id);
+    if (subjectCourses.length === 0) continue;
+    let done = 0;
+    let total = 0;
+    for (const e of subjectCourses) {
+      const lessons = await store.getLessonsForCourse(e.course.id);
+      total += lessons.length;
+      done += lessons.filter((l) => completedLessons.some((p) => p.lessonId === l.id)).length;
+    }
+    if (total === 0) continue;
+    subjectProgress.push({
+      subjectName: subject.name,
+      done,
+      total,
+      pct: Math.round((done / total) * 100),
+    });
+  }
+  subjectProgress.sort((a, b) => b.pct - a.pct);
+
+  return { summary, enrollments: enriched, recommended, recentLessons, recentAttempts, bookmarks: resolvedBookmarks, subjectProgress };
 }

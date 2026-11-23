@@ -39,7 +39,7 @@ export default async function DashboardPage() {
     buildStudentSummary(user.id, store),
     store.getSubjects(),
   ]);
-  const { summary, enrollments, recommended, recentLessons, recentAttempts, bookmarks } = bundle;
+  const { summary, enrollments, recommended, recentLessons, recentAttempts, bookmarks, subjectProgress } = bundle;
   const chosenSubjects = subjects.filter((s) => profile?.subjectIds.includes(s.id));
 
   const country = countries.find((c) => c.code === profile?.countryCode);
@@ -341,6 +341,33 @@ export default async function DashboardPage() {
               </p>
             )}
           </section>
+
+          {/* Subject progress */}
+          {subjectProgress.length > 0 && (
+            <section className="card p-6" aria-labelledby="subject-progress-heading">
+              <h2 id="subject-progress-heading" className="text-base font-bold text-navy-950">
+                Subject progress
+              </h2>
+              <ul className="mt-4 space-y-3.5">
+                {subjectProgress.map((s) => (
+                  <li key={s.subjectName}>
+                    <div className="flex items-center justify-between gap-3 text-sm">
+                      <span className="font-medium text-navy-900">{s.subjectName}</span>
+                      <span className="text-[13px] tabular-nums text-muted">
+                        {s.done}/{s.total} lessons · {s.pct}%
+                      </span>
+                    </div>
+                    <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-surface3">
+                      <div
+                        className="h-full rounded-full bg-brand-600 transition-all duration-500"
+                        style={{ width: `${s.pct}%` }}
+                      />
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
 
           {/* Bookmarked resources */}
           <section className="card p-6" aria-labelledby="bookmarks-heading">
